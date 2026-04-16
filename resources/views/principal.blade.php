@@ -3,25 +3,9 @@
 @section('title', 'principal')
 
 @section('content')
-    <div class="container py-4">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm rounded mb-4">
-            <a class="navbar-brand fw-bold" href="#">Nombre</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Principal</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-                </ul>
-            </div>
-        </nav>
 
         <section class="text-center py-5">
-            <h1 class="display-5 fw-bold">Bienvenidos a Nombre</h1>
+            <h1 class="display-5 fw-bold">Bienvenidos a <strong>Punto Electronico</strong></h1>
             <p class="lead text-muted mx-auto" style="max-width: 720px;">
                 Tecnología accesible y diseños modernos para tu vida diaria. Auriculares, televisores, celulares y
                 consolas en un solo lugar.
@@ -81,9 +65,7 @@
 
         <section id="contacto" class="text-center py-4">
             <p class="mb-3 text-muted">Explora nuestra selección y encuentra el producto tecnológico ideal.</p>
-            <a href="{{ route('productos.ver') }}" class="btn btn-primary btn-lg">
-    Ver productos
-</a>
+            <a href="/productos" class="btn btn-primary btn-lg">Ver productos</a>
         </section>
     </div>
 @endsection

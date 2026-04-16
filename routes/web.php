@@ -30,11 +30,6 @@ Route::get('/productos', function () {
 });
 
 
-
-Route::get('/nuestros-productos', function () {
-    return view('productos');
-})->name('productos.ver');
-
 Route::get('/consultas', function () {
     return view('consultas');
 });

@@ -1,0 +1,14 @@
+:root{
+  --bs-body-bg: #07122b;
+  --bs-body-color: #ffffff;
+  --bs-primary: #0b2a45;
+  --bs-primary-rgb: 11,42,69;
+}
+
+body{background-color:var(--bs-body-bg);color:var(--bs-body-color)}
+.navbar, footer{background-color:var(--bs-primary) !important}
+.navbar .nav-link, .navbar .navbar-brand, footer{color:var(--bs-body-color) !important}
+.card, .modal-content{background-color:#0f2233; color:var(--bs-body-color)}
+.btn-primary{background-color:var(--bs-primary);border-color:var(--bs-primary)}
+.text-muted{color:rgba(255,255,255,0.65) !important}
+.form-control{background-color:rgba(255,255,255,0.02);color:var(--bs-body-color);border-color:rgba(255,255,255,0.06)}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Mi Página')</title>
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     @yield('extra-css')
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -36,6 +37,7 @@
         </div>
     </footer>
 
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @yield('extra-js')
 </body>
 </html>
