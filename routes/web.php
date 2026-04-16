@@ -7,8 +7,8 @@ Route::get('/', function () {
     return view('principal');
 });
 
-Route::get('/sobre-mi', function () {
-    return view('sobre-mi');
+Route::get('/quienesSomos', function () {
+    return view('quienesSomos');
 });
 
 Route::get('/contacto', function () {
@@ -38,3 +38,6 @@ Route::get('/terminosYUsos', function () {
     return view('terminosYUsos');
 });
 
+Route::get('/registrarse', function () {
+    return view('registrarse');
+});

@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="navbar-nav">
                     <a class="nav-link {{ request()->path() == '/' ? 'active' : '' }}" href="/">Principal</a>
-                    <a class="nav-link {{ request()->path() == 'sobre-mi' ? 'active' : '' }}" href="/sobre-mi">Sobre Mi</a>
+                    <a class="nav-link {{ request()->path() == 'quienesSomos' ? 'active' : '' }}" href="/quienesSomos">Quienes somos</a>
                     <a class="nav-link {{ request()->path() == 'contacto' ? 'active' : '' }}" href="/contacto">Contacto</a>
                     <a class="nav-link {{ request()->path() == 'comercializacion' ? 'active' : '' }}" href="/comercializacion">Comercializacion</a>
                     <a class="nav-link {{ request()->path() == 'productos' ? 'active' : '' }}" href="/productos">Productos</a>
