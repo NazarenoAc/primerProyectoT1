@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactoController;
 
 Route::get('/', function () {
-    return view('inicio');
+    return view('principal');
 });
 
 Route::get('/sobre-mi', function () {
@@ -28,6 +28,12 @@ Route::get('/comercializacion', function () {
 Route::get('/productos', function () {
     return view('productos');
 });
+
+
+
+Route::get('/nuestros-productos', function () {
+    return view('productos');
+})->name('productos.ver');
 
 Route::get('/consultas', function () {
     return view('consultas');
