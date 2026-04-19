@@ -34,7 +34,7 @@
         </div>
     </a>
 
-    <a href="/conocenos">
+    <a href="/quienesSomos">
         <div class="carousel-item">
         <img src="{{ asset('images/conocenos.png') }}" class="d-block w-100" alt="Conocenos">
         </div>

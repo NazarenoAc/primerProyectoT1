@@ -1,6 +1,6 @@
 @extends('layouts.app') 
 
-@section('title', 'Sobre Nosotros - Punto Electrónico')
+@section('title', '¿Quiénes Somos? - Punto Electrónico')
 
 @section('content')
 <section>
@@ -27,7 +27,7 @@
         <div class="col-md-4">
             <div class="card h-100 border-success border-top border-3 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-success">🎯 Nuestra misión</h3>
+                    <h3 class="card-title text-success">Nuestra misión</h3>
                     <p class="card-text">Brindar productos tecnológicos de calidad con un servicio cercano y transparente. Queremos ser el aliado tecnológico de los hogares argentinos.</p>
                 </div>
             </div>
@@ -35,7 +35,7 @@
         <div class="col-md-4">
             <div class="card h-100 border-success border-top border-3 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-success">👁️ Nuestra visión</h3>
+                    <h3 class="card-title text-success">Nuestra visión</h3>
                     <p class="card-text">Convertirnos en el <strong>Punto de Encuentro</strong> digital líder para los amantes de la tecnología, expandiendo nuestro catálogo con las últimas tendencias del mercado.</p>
                 </div>
             </div>
@@ -43,11 +43,11 @@
         <div class="col-md-4">
             <div class="card h-100 border-success border-top border-3 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-success">💡 Nuestros valores</h3>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">✅ Confianza y Garantía</li>
-                        <li class="mb-2">✅ Atención Personalizada</li>
-                        <li class="mb-2">✅ Pasión por la Innovación</li>
+                    <h3 class="card-title text-success">Nuestros valores</h3>
+                    <ul class="ps-3">
+                        <li class="mb-2"><strong>Confianza y Garantía</strong></li>
+                        <li class="mb-2"><strong>Atención Personalizada</strong></li>
+                        <li class="mb-2"><strong>Pasión por la Innovación</strong></li>
                     </ul>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                         
                         <i class="bi bi-person-circle fs-1 text-primary"></i>
                     </div>
-                    <h4 class="card-title fw-bold">Benitez, Nicolas</h4>
+                    <h4 class="card-title fw-bold">Benitez Vallejos, Nicolas</h4>
                     <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
                     <p class="text-secondary mb-3"><i class="bi bi-calendar"></i> 20 años</p>
                     <span class="badge bg-success p-2 px-3">Asesor de Ventas y Logística</span>
@@ -97,7 +97,8 @@
     <div class="row mt-4">
         <div class="col-12 text-center">
             <p class="fs-5">¿Listo para renovar tu tecnología?</p>
-            <a href="/contacto" class="btn btn-secondary btn-lg mt-2 px-5">Contáctanos</a>
+            <a href="/productos" class="btn btn-primary btn-lg mt-2 px-5">Explora nuestro catálogo</a>
+            <a href="/contacto" class="btn btn-primary btn-lg mt-2 px-5">Contáctanos</a>
         </div>
     </div>
 </section>

@@ -41,3 +41,7 @@ Route::get('/terminosYUsos', function () {
 Route::get('/registrarse', function () {
     return view('registrarse');
 });
+
+Route::get('/novedades', function () {
+    return view('novedades');
+});

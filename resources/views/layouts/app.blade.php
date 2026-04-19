@@ -14,10 +14,11 @@
             <div class="container">
                 <div class="navbar-nav">
                     <a class="nav-link {{ request()->path() == '/' ? 'active' : '' }}" href="/">Principal</a>
-                    <a class="nav-link {{ request()->path() == 'quienesSomos' ? 'active' : '' }}" href="/quienesSomos">Quienes somos</a>
+                    <a class="nav-link {{ request()->path() == 'productos' ? 'active' : '' }}" href="/productos">Productos</a>
+                    <a class="nav-link {{ request()->path() == 'novedades' ? 'active' : '' }}" href="/novedades">Novedades</a>
                     <a class="nav-link {{ request()->path() == 'contacto' ? 'active' : '' }}" href="/contacto">Contacto</a>
                     <a class="nav-link {{ request()->path() == 'comercializacion' ? 'active' : '' }}" href="/comercializacion">Comercializacion</a>
-                    <a class="nav-link {{ request()->path() == 'productos' ? 'active' : '' }}" href="/productos">Productos</a>
+                    <a class="nav-link {{ request()->path() == 'quienesSomos' ? 'active' : '' }}" href="/quienesSomos">Quienes somos</a>
                     <a class="nav-link {{ request()->path() == 'consultas' ? 'active' : '' }}" href="/consultas">Consultas</a>
                     <a class="nav-link {{ request()->path() == 'terminosYUsos' ? 'active' : '' }}" href="/terminosYUsos">Terminos y Usos</a>
                 </div>
