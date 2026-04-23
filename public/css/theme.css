@@ -55,11 +55,11 @@ footer {
   backdrop-filter: blur(8px);
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.15);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 footer .text-white {
-  color: rgba(255, 255, 255, 0.95) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 /* ===== CARDS MODERNAS ===== */
@@ -142,7 +142,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  color: var(--text-dark);
+  color: rgb(255, 255, 255);
   line-height: 1.6;
 }
 

@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card border-0 bg-primary text-white shadow">
                 <div class="card-body text-center p-5">
-                    <h1 class="display-5 fw-bold">Punto Electrónico</h1>
+                    <h3 class="display-5 fw-bold">Punto Electrónico</h3>
                     <p class="lead fs-4">Tecnología que te conecta con lo que más te gusta.</p>
                     <hr class="my-4 w-25 mx-auto bg-white">
                     <p class="fs-5">
@@ -69,7 +69,7 @@
                         
                         <i class="bi bi-person-circle fs-1 text-primary"></i>
                     </div>
-                    <h4 class="card-title fw-bold">Benitez Vallejos, Nicolas</h4>
+                    <h3 class="card-title fw-bold">Benitez Vallejos, Nicolas</h3>
                     <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
                     <p class="text-secondary mb-3"><i class="bi bi-calendar"></i> 20 años</p>
                     <span class="badge bg-success p-2 px-3">Asesor de Ventas y Logística</span>
@@ -84,7 +84,7 @@
                     <div class="mb-3">
                         <i class="bi bi-person-circle fs-1 text-primary"></i>
                     </div>
-                    <h4 class="card-title fw-bold">Acevedo Acosta, Nazareno</h4>
+                    <h3 class="card-title fw-bold">Acevedo Acosta, Nazareno</h3>
                     <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
                     <p class="text-secondary mb-3"><i class="bi bi-calendar"></i> 20 años</p>
                     <span class="badge bg-success p-2 px-3">Asesor de Ventas y Logística</span>
