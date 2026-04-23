@@ -16,7 +16,7 @@
                 <li><a href="#privacidad" class="text-white">3. Política de Privacidad</a></li>
                 <li><a href="#condiciones-venta" class="text-white">4. Condiciones de Venta</a></li>
                 <li><a href="#garantias" class="text-white">5. Garantías</a></li>
-                <li><a href="#soporte-postventa" class="text-white">6. Soporte Postventa</a></li>
+                <li><a href="#soporte-posventa" class="text-white">6. Soporte Posventa</a></li>
                 <li><a href="#entregas" class="text-white">7. Formas de Entrega y Tiempos</a></li>
                 <li><a href="#procedimientos" class="text-white">8. Procedimientos de Compra</a></li>
             </ul>
@@ -73,9 +73,9 @@
         </div>
     </section>
 
-    <section id="soporte-postventa" class="card mb-4">
+    <section id="soporte-posventa" class="card mb-4">
         <div class="card-body">
-            <h3 class="card-title h3 mb-4">6. Soporte Postventa</h3>
+            <h3 class="card-title h3 mb-4">6. Soporte Posventa</h3>
             <p>Brindamos asesoramiento técnico gratuito durante 6 meses posteriores a la compra para la correcta instalación y configuración de los productos adquiridos. Pasado ese período, el soporte técnico puede tener aranceles diferenciados según la complejidad.</p>
             <p>Puedes contactar a nuestro equipo de soporte a través del <a href="{{ url('/consultas') }}" class="text-white">formulario de consultas</a>, por correo electrónico apuntoelectr@gmail.com o telefónicamente al +54 9 3794949990 o al +54 9 3794540426 en horario de atención.</p>
         </div>
