@@ -1,14 +1,229 @@
-:root{
-  --bs-body-bg: #07122b;
-  --bs-body-color: #ffffff;
-  --bs-primary: #0b2a45;
-  --bs-primary-rgb: 11,42,69;
+/* ===== VARIABLES Y COLORES PROFESIONALES ===== */
+:root {
+  --bs-body-bg: transparent;
+  --bs-body-color: #2c3e50;
+  --primary-color: #011c46;
+  --primary-light: #00406b;
+  --accent-color: #0066cc;
+  --text-dark: #2c3e50;
+  --text-light: #ffffff;
 }
 
-body{background-color:var(--bs-body-bg);color:var(--bs-body-color)}
-.navbar, footer{background-color:var(--bs-primary) !important}
-.navbar .nav-link, .navbar .navbar-brand, footer{color:var(--bs-body-color) !important}
-.card, .modal-content{background-color:#0f2233; color:var(--bs-body-color)}
-.btn-primary{background-color:var(--bs-primary);border-color:var(--bs-primary)}
-.text-muted{color:rgba(255,255,255,0.65) !important}
-.form-control{background-color:rgba(255,255,255,0.02);color:var(--bs-body-color);border-color:rgba(255,255,255,0.06)}
+/* ===== BACKGROUND DEGRADADO PROFESIONAL ===== */
+html {
+  background: linear-gradient(180deg, #1a3a52 0%, #2d5a80 25%, #4a7ba7 50%, #6b9bc5 75%, #d4e6f1 100%) fixed !important;
+  min-height: 100vh !important;
+}
+
+body {
+  background: transparent !important;
+  color: var(--text-dark) !important;
+  min-height: 100vh !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+}
+
+/* ===== NAVBAR PROFESIONAL ===== */
+.navbar {
+  background: rgba(26, 58, 82, 0.98) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin: 0 8px;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff !important;
+  border-bottom: 2px solid #3b7ba7;
+}
+
+.navbar .nav-link.active {
+  color: #ffffff !important;
+  border-bottom: 2px solid #0066cc;
+}
+
+/* ===== FOOTER PROFESIONAL ===== */
+footer {
+  background: rgba(26, 58, 82, 0.98) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+footer .text-white {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* ===== CARDS MODERNAS ===== */
+.card {
+  background: var(--primary-color) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 123, 167, 0.15) !important;
+  color: var(--text-light);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+
+  box-shadow: 0 16px 48px rgba(59, 123, 167, 0.15);
+  border-color: rgba(59, 123, 167, 0.3) !important;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.card h3, .card h5 {
+  color: var(--text-light) !important;
+  font-weight: 600;
+}
+
+.card p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* ===== BOTONES MODERNOS ===== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
+  border: none !important;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 123, 167, 0.35);
+  background: linear-gradient(135deg, var(--primary-light) 0%, #3b7ba7 100%) !important;
+}
+
+/* ===== FORMULARIOS ===== */
+.form-control {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(59, 123, 167, 0.2) !important;
+  color: var(--text-dark) !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: var(--accent-color) !important;
+  color: var(--text-dark) !important;
+  box-shadow: 0 0 0 3px rgba(59, 123, 167, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.form-control::placeholder {
+  color: var(--text-light);
+}
+
+/* ===== TEXTOS ===== */
+.text-muted {
+  color: var(--text-light) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color) !important;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* ===== SECCIONES ===== */
+section {
+  margin: 3rem 0;
+}
+
+section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== CAROUSEL ===== */
+.carousel {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  background: rgba(26, 58, 82, 0.5);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: rgba(26, 58, 82, 0.8);
+}
+
+/* ===== MODAL ===== */
+.modal-content {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 123, 167, 0.15) !important;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(59, 123, 167, 0.1) !important;
+  background: rgba(212, 230, 241, 0.3);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(59, 123, 167, 0.1) !important;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .navbar {
+    background: rgba(26, 58, 82, 0.99) !important;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}

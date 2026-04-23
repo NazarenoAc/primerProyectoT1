@@ -65,7 +65,7 @@
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h3 class="h5 fw-semibold">Auriculares</h3>
+                        <h3 class="h5 fw-semibold"><strong>Auriculares</strong></h3>
                         <p class="text-muted">Sonido nítido, comodidad prolongada y conectividad actual para tus momentos de ocio.</p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h3 class="h5 fw-semibold">Televisores</h3>
+                        <h3 class="h5 fw-semibold"><strong>Televisores</strong></h3>
                         <p class="text-muted">Pantallas con alta definición y buen brillo para ver películas, series y juegos con estilo.</p>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h3 class="h5 fw-semibold">Celulares</h3>
+                        <h3 class="h5 fw-semibold"><strong>Celulares</strong></h3>
                         <p class="text-muted">Modelos modernos y funcionales para comunicación, entretenimiento y productividad diaria.</p>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h3 class="h5 fw-semibold">Consolas</h3>
+                        <h3 class="h5 fw-semibold"><strong>Consolas</strong></h3>
                         <p class="text-muted">Entretenimiento para toda la familia con consolas y accesorios de última generación.</p>
                     </div>
                 </div>
