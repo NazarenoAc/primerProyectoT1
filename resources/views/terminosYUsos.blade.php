@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-5">
-    <h1 class="mb-4 fade-in-up">Términos y Usos</h1>
+    <h1 class="mb-4 fade-in-up" style="color: #ffffff;">Términos y Usos</h1>
     <p class="lead mb-5">Última actualización: 20/04/2026</p>
 
     <div class="card mb-5">
