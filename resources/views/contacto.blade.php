@@ -31,7 +31,7 @@
                 <i class="bi bi-telephone"></i>
             </div>
             <h5>Teléfono</h5>
-            <p>+54 379 4540426<br>+54 9 379 4949990</p>
+            <p>+54 9 379 4540426<br>+54 9 379 4949990</p>
         </div>
     </div>
 
@@ -95,7 +95,7 @@
 
                 <div class="ratio ratio-16x9">
                     <iframe 
-                        src="https://www.google.com/maps?q=Buenos+Aires&output=embed"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d885.0206349300204!2d-58.832957330456395!3d-27.466689598520073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94456ca6d11ee93d%3A0x597626256826f00a!2s9%20de%20Julio%201449%2C%20W3400%20Corrientes!5e0!3m2!1ses-419!2sar!4v1777254201333!5m2!1ses-419!2sar"
                         style="border:0;"
                         allowfullscreen=""
                         loading="lazy">
@@ -108,4 +108,5 @@
 </div>
 
 </div>
+
 @endsection

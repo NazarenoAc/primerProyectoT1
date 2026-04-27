@@ -11,11 +11,11 @@
                     <form>
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="Ingrese su email">
+                            <input type="email" class="form-control custom-input" placeholder="Ingrese su email">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" placeholder="Ingrese su contraseña">
+                            <input type="password" class="form-control custom-input" placeholder="Ingrese su contraseña">
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
                     </form>

@@ -32,12 +32,12 @@
                                 <img src="{{ asset('images/productos.png') }}" class="d-block w-100" alt="Productos">
                             </div>
                         </a>
-                        <a href="/novedades">
+                        <a href="/productos">
                             <div class="carousel-item">
                                 <img src="{{ asset('images/novedades.png') }}" class="d-block w-100" alt="Novedades">
                             </div>
                         </a>
-                        <a href="/ofertas">
+                        <a href="/productos">
                             <div class="carousel-item">
                                 <img src="{{ asset('images/ofertas.png') }}" class="d-block w-100" alt="Ofertas">
                             </div>

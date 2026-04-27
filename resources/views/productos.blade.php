@@ -145,7 +145,7 @@
                     <h5 class="card-title">Monitor BENQ 240HZ ZOWIE</h5>
                     <p class="card-text text-secondary flex-grow-1">Monitor de 24 pulgadas con tasa de refresco de 240Hz, ideal para gaming.</p>
                     <div class="mt-3 d-flex align-items-center w-100">
-    <span class="badge text-dark fs-6">$1500</span>
+    <span class="badge bg-warning text-dark fs-6">$1500</span>
     <a href="#" class="btn btn-sm ms-auto">Agregar al carrito</a>
 </div>
                 </div>

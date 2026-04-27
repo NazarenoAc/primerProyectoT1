@@ -33,6 +33,7 @@ Route::get('/productos', function () {
 Route::get('/consultas', function () {
     return view('consultas');
 });
+Route::post('/consultas', [ContactoController::class, 'procesar']);
 
 Route::get('/terminosYUsos', function () {
     return view('terminosYUsos');
@@ -40,6 +41,10 @@ Route::get('/terminosYUsos', function () {
 
 Route::get('/registrarse', function () {
     return view('registrarse');
+});
+
+Route::get('/login', function () {
+    return view('login');
 });
 
 Route::get('/novedades', function () {

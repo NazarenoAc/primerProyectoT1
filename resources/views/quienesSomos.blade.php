@@ -64,8 +64,8 @@
                     </div>
                     <h3 class="card-title fw-bold">Benitez Vallejos, Nicolas</h3>
                     <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
-                    <p class="text-secondary mb-3"><i class="bi bi-calendar"></i> 20 años</p>
-                    <span class="badge p-2 px-3">Desarrollador web Full Stack</span>
+                    <p class="text-secondary mb-3"></i> 20 años</p>
+                    <span class="badge p-2 px-3">Vendedor y asesor de ventas</span>
                     
                 </div>
             </div>
@@ -79,8 +79,8 @@
                     </div>
                     <h3 class="card-title fw-bold">Acevedo Acosta, Nazareno</h3>
                     <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
-                    <p class="text-secondary mb-3"><i class="bi bi-calendar"></i> 20 años</p>
-                    <span class="badge p-2 px-3">Desarrollador Web Full Stack</span>
+                    <p class="text-secondary mb-3"></i> 20 años</p>
+                    <span class="badge p-2 px-3">Vendedor y asesor de ventas</span>
                     
                 </div>
             </div>
