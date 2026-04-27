@@ -49,9 +49,9 @@
                         </div>
 
                         <div class="col-12 text-center mt-4">
-                            <span class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded shadow" style="background-color: #3b82f6; border: none;">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded shadow" style="background-color: #3b82f6; border: none;">
                                 Enviar Mensaje
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
