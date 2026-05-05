@@ -14,8 +14,6 @@ Route::get('/quienesSomos', function () {
 Route::get('/contacto', function () {
     return view('contacto');
 });
-Route::post('/contacto', [ContactoController::class, 'procesar']);
-
 
 Route::get('/exito', function () {
     return view('exito');

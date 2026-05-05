@@ -38,7 +38,7 @@
                 <a class="nav-link" href="/terminosYUsos">Terminos y Usos</a>
             </div>
 
-            <!-- DERECHA -->
+            
             <div class="d-flex align-items-center">
                 <a class="nav-link" href="/registrarse">
                     <i class="bi bi-person-plus me-1"></i>Registrarse
@@ -66,7 +66,7 @@
         </div>
     </main>
 
-    <footer class="text-white py-4">
+    <footer class="text-white py-4 footer-links">
     <div class="container">
         <div class="row align-items-center">
 
@@ -86,6 +86,14 @@
                     <li class="nav-item"><a href="/comercializacion" class="nav-link px-2 text-secondary hover-white">Comercialización</a></li>
                     <li class="nav-item"><a href="/quienesSomos" class="nav-link px-2 text-secondary hover-white">Quiénes somos</a></li>
                     <li class="nav-item"><a href="/terminosYUsos" class="nav-link px-2 text-secondary hover-white">Términos y Usos</a></li>
+                    <li class="nav-link px-2 text-secondary hover-white">Redes sociales
+                        <a href="https://www.facebook.com/puntoelectronic" class="text-secondary hover-white ms-2" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/puntoelectronic" class="text-secondary hover-white ms-2" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
