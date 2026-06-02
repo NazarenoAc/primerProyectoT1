@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rols', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('nombre', 100);
-            $table->string('descripcion', 255)->nullable();
+        Schema::create('roles', function (Blueprint $table) {
+        $table->id(); // PK autoincremental
+        $table->string('nombre')->unique(); // unique() evita roles duplicados
+        $table->string('descripcion')->nullable(); // campo opcional
+        $table->timestamps(); // created_at y updated_at (automáticos)
+        $table->softDeletes(); // deleted_at — borrado lógico
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('rols');
+    public function down(): void {
+        Schema::dropIfExists('roles'); // revierte con migrate:rollback
     }
 };

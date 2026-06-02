@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personas', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('email')->unique();
+            $table->string('password'); // siempre hasheada, nunca en texto plano
+            $table->foreignId('rol_id')
+            ->constrained('roles') // FK hacia tabla roles
+            ->onDelete('restrict'); // impide borrar un rol con usuarios
+            $table->rememberToken(); // token para "Recordarme"
             $table->timestamps();
-            $table->string('nombre', 100);
-            $table->string('email', 100);
-            $table->string('password', 100);
-            $table->boolean('estado')->default(true);
-            $table->ForeignId('rol_id')->constrained('roles')->onDelete('cascade');
-
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('personas');
+        Schema::dropIfExists('usuarios');
     }
 };

@@ -40,19 +40,42 @@
 
             
             <div class="d-flex align-items-center">
-                <a class="nav-link" href="/registrarse">
-                    <i class="bi bi-person-plus me-1"></i>Registrarse
-                </a>
-                <a class="nav-link" href="/login">
-                    <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
-                </a>
-
-                <a class="nav-link position-relative" href="/carrito">
-                    <i class="bi bi-cart3"></i>
-                    <span class="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
-                        0
+                @auth
+                    {{-- Esto se muestra SOLO si el usuario inició sesión --}}
+                    <span class="navbar-text me-3 text-white">
+                        <i class="bi bi-person-circle me-1"></i>Hola, {{ auth()->user()->nombre }}
                     </span>
-                </a>
+
+                    @if(auth()->user()->rol && auth()->user()->rol->nombre === 'admin')
+                        {{-- Enlace exclusivo para el Administrador --}}
+                        <a class="nav-link me-3 text-warning" href="/admin">
+                            <i class="bi bi-sliders me-1"></i>Panel Admin
+                        </a>
+                    @else
+                        {{-- Enlace exclusivo para los Clientes --}}
+                        <a class="nav-link me-3" href="/carrito">
+                            <i class="bi bi-cart3 me-1"></i>Mi carrito
+                            <span class="badge rounded-pill bg-danger" style="font-size: 0.65rem;">0</span>
+                        </a>
+                    @endif
+
+                    {{-- Botón para Cerrar Sesión (Muy importante para poder salir) --}}
+                    <form action="/logout" method="POST" class="d-inline m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link text-danger p-0" style="border: none; background: none;">
+                            <i class="bi bi-box-arrow-left me-1"></i>Salir
+                        </button>
+                    </form>
+
+                @else
+                    {{-- Esto se muestra SOLO si el usuario es un visitante (Invitado) --}}
+                    <a class="nav-link me-3" href="/registrarse">
+                        <i class="bi bi-person-plus me-1"></i>Registrarse
+                    </a>
+                    <a class="nav-link" href="/login">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
+                    </a>
+                @endauth
             </div>
 
         </div>

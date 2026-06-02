@@ -2,21 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; // ◄--- IMPORTANTE: Para que funcione el login
+use Illuminate\Database\Eloquent\Factories\HasFactory;       // ◄--- IMPORTANTE: Para el borrado lógico
 
-class Usuario extends Model
+class Usuario extends Authenticatable 
 {
-    protected $table = 'usuarios';
+    use HasFactory;
+
+    protected $table = 'usuarios'; 
 
     protected $fillable = [
-        'nombre',
-        'email',
-        'password',
-        'estado',
-        'rol_id',
+        'nombre', 
+        'email', 
+        'password', 
+        'rol_id'
     ];
 
     protected $hidden = [
-        'password',
+        'password', 
+        'remember_token'
+    ]; 
+
+    protected $casts = [
+        'password' => 'hashed',
     ];
+
+    // Relación: un Usuario pertenece a un Rol → se usa como $usuario->rol
+    public function rol() {
+        return $this->belongsTo(Rol::class, 'rol_id');
+    }
 }

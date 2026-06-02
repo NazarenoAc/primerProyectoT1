@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactoController;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController; // Ya que estás, agrega el de Admin también
 Route::get('/', function () {
     return view('principal');
 });
@@ -41,8 +42,13 @@ Route::get('/registrarse', function () {
     return view('registrarse');
 });
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/login', [AuthController::class, 'formularioLogin']);
+
+// ◄--- ¡ESTA ES LA QUE TE FALTA AGREGAR! (Procesa el formulario)
+Route::post('/login', [AuthController::class, 'autenticar']);
+
+Route::middleware(['auth', 'rol:admin'])->group(function (){
+    Route::get('/admin', [AdminController::class, 'dashboard']);
 });
 
 Route::get('/novedades', function () {

@@ -7,13 +7,22 @@ use Illuminate\Http\Request;
 
 class RolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() {
+$roles = Rol::all(); // SoftDelete filtra deleted_at automáticamente
+return view('roles.index', compact('roles'));
+}
+public function store(Request $request) {
+$request->validate([
+'nombre' => 'required|string|max:50|unique:roles',
+'descripcion' => 'nullable|string|max:255',
+]);
+Rol::create($request->only(['nombre', 'descripcion'])); // usa $fillable del Model
+return redirect()->route('roles.index')->with('exito', 'Rol creado.');
+}
+public function destroy(Rol $rol) {
+$rol->delete(); // SoftDelete: setea deleted_at, no borra la fila
+return redirect()->route('roles.index')->with('exito', 'Rol eliminado.');
+}
 
     /**
      * Show the form for creating a new resource.
@@ -23,14 +32,7 @@ class RolController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      */
@@ -55,11 +57,5 @@ class RolController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Rol $rol)
-    {
-        //
-    }
+    
 }
