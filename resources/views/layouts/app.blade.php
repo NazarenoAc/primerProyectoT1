@@ -43,18 +43,18 @@
                 @auth
                     {{-- Esto se muestra SOLO si el usuario inició sesión --}}
                     <span class="navbar-text me-3 text-white">
-                        <i class="bi bi-person-circle me-1"></i>Hola, {{ auth()->user()->nombre }}
+                        <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->nombre }}
                     </span>
 
                     @if(auth()->user()->rol && auth()->user()->rol->nombre === 'admin')
                         {{-- Enlace exclusivo para el Administrador --}}
-                        <a class="nav-link me-3 text-warning" href="/admin">
-                            <i class="bi bi-sliders me-1"></i>Panel Admin
+                        <a class="nav-link me-3 text-warning" href="/adminDashboard">
+                            <i class="me-1"></i>Panel de Gestion
                         </a>
                     @else
                         {{-- Enlace exclusivo para los Clientes --}}
                         <a class="nav-link me-3" href="/carrito">
-                            <i class="bi bi-cart3 me-1"></i>Mi carrito
+                            <i class="bi bi-cart3 me-1"></i>
                             <span class="badge rounded-pill bg-danger" style="font-size: 0.65rem;">0</span>
                         </a>
                     @endif
@@ -63,7 +63,7 @@
                     <form action="/logout" method="POST" class="d-inline m-0">
                         @csrf
                         <button type="submit" class="btn btn-link nav-link text-danger p-0" style="border: none; background: none;">
-                            <i class="bi bi-box-arrow-left me-1"></i>Salir
+                            <i class="me-1"></i>Salir
                         </button>
                     </form>
 
@@ -73,7 +73,7 @@
                         <i class="bi bi-person-plus me-1"></i>Registrarse
                     </a>
                     <a class="nav-link" href="/login">
-                        <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
+                        <i class=" me-1"></i>Iniciar Sesión
                     </a>
                 @endauth
             </div>

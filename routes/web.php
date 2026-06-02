@@ -38,14 +38,15 @@ Route::get('/terminosYUsos', function () {
     return view('terminosYUsos');
 });
 
-Route::get('/registrarse', function () {
-    return view('registrarse');
-});
+Route::get('/registrarse', [AuthController::class, 'formularioRegistro']);
+Route::post('/registrarse', [AuthController::class, 'registrar']);
 
 Route::get('/login', [AuthController::class, 'formularioLogin']);
 
 // ◄--- ¡ESTA ES LA QUE TE FALTA AGREGAR! (Procesa el formulario)
 Route::post('/login', [AuthController::class, 'autenticar']);
+
+Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth', 'rol:admin'])->group(function (){
     Route::get('/admin', [AdminController::class, 'dashboard']);
