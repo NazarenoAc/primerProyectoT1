@@ -4,17 +4,18 @@
 
 @section('content')
 
-<section>
-    <div class="container py-4">
+<section class="home-hero py-4">
         <div class="row align-items-center gy-4">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-lg-5">
                 <h1 class="display-4 fw-bold text-light">El futuro<br><strong class="text-primary">en tus manos</strong></h1>
                 <p class="lead text-light">Descubre la mejor selección de productos electrónicos. Smartphones, laptops, audio y mucho más con la calidad que mereces.</p>
-                <a href="/productos" class="btn btn-primary">Ver productos</a>
-                <a href="/contacto" class="btn btn-subtle ms-3">Contactanos</a>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/productos" class="btn btn-primary">Ver productos</a>
+                    <a href="/contacto" class="btn btn-subtle">Contactanos</a>
+                </div>
             </div>
 
-            <div class="col-12 col-md-6 d-flex justify-content-md-end">
+            <div class="col-12 col-lg-7 d-flex justify-content-lg-end">
                 <div id="carouselExampleIndicators" class="carousel slide hero-carousel" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -59,7 +60,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
         <section class="text-center py-5">
@@ -166,6 +166,4 @@
                 </div>
             </div>
         </section>
-
-    </div>
 @endsection

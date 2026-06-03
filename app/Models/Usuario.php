@@ -31,4 +31,14 @@ class Usuario extends Authenticatable
     public function rol() {
         return $this->belongsTo(Rol::class, 'rol_id');
     }
+
+    public function carritoItems()
+    {
+        return $this->hasMany(CarritoItem::class, 'usuario_id');
+    }
+
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, 'usuario_id');
+    }
 }

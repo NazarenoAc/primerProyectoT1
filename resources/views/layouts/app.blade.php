@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Contacto')</title>
+    <title>@yield('title', 'Punto Electronico')</title>
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -11,76 +11,96 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg px-0">
-    <div class="container-fluid px-2">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                    <img src="{{ asset('images/LOGO.png') }}" width="66" height="52" alt="Punto Electronico">
+                </a>
 
-      
-        <a class="navbar-brand me-5" href="/">
-            <img src="{{ asset('images/LOGO.png') }}" width="72" height="56">
-        </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Abrir menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <div class="collapse navbar-collapse" id="navbarContenido">
+                    <div class="navbar-nav navbar-main mx-lg-auto">
+                        <a class="nav-link {{ request()->path() == '/' ? 'active' : '' }}" href="/">Principal</a>
+                        <a class="nav-link {{ request()->is('productos') ? 'active' : '' }}" href="/productos">Productos</a>
+                        <a class="nav-link {{ request()->is('contacto') ? 'active' : '' }}" href="/contacto">Contacto</a>
+                        <a class="nav-link {{ request()->is('comercializacion') ? 'active' : '' }}" href="/comercializacion">Comercializacion</a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->is('quienesSomos') || request()->is('consultas') || request()->is('terminosYUsos') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mas
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/quienesSomos">Quienes somos</a></li>
+                                <li><a class="dropdown-item" href="/consultas">Consultas</a></li>
+                                <li><a class="dropdown-item" href="/terminosYUsos">Terminos y Usos</a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-      
-        <div class="collapse navbar-collapse" id="navbarContenido">
+                    <div class="navbar-actions d-flex align-items-lg-center gap-3 mt-3 mt-lg-0">
+                        @auth
+                            @if(! auth()->user()->rol || auth()->user()->rol->nombre !== 'admin')
+                                @php
+                                    $carritoCantidad = 0;
+                                    if (\Illuminate\Support\Facades\Schema::hasTable('carrito_items')) {
+                                        $carritoCantidad = \App\Models\CarritoItem::where('usuario_id', auth()->id())->sum('cantidad');
+                                    }
+                                @endphp
 
-            
-            <div class="navbar-nav me-auto">
-                <a class="nav-link {{ request()->path() == '/' ? 'active' : '' }}" href="/">Principal</a>
-                <a class="nav-link" href="/productos">Productos</a>
-                <a class="nav-link" href="/contacto">Contacto</a>
-                <a class="nav-link" href="/comercializacion">Comercializacion</a>
-                <a class="nav-link" href="/quienesSomos">Quienes somos</a>
-                <a class="nav-link" href="/consultas">Consultas</a>
-                <a class="nav-link" href="/terminosYUsos">Terminos y Usos</a>
+                                <a href="/carrito" class="header-cart" aria-label="Ver carrito">
+                                    <i class="bi bi-cart3"></i>
+                                    <strong>{{ $carritoCantidad }}</strong>
+                                </a>
+                            @endif
+
+                            <div class="dropdown user-menu">
+                                <button class="btn user-menu-toggle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="user-avatar">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+                                    <span class="user-menu-name">{{ auth()->user()->nombre }}</span>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                    @if(auth()->user()->rol && auth()->user()->rol->nombre === 'admin')
+                                        <li>
+                                            <a class="dropdown-item" href="/admin">
+                                                <i class="bi bi-speedometer2 me-2"></i>Panel de Gestion
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a class="dropdown-item" href="/mis-pedidos">
+                                                <i class="bi bi-bag-check me-2"></i>Mis pedidos
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form action="/logout" method="POST" class="m-0">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesion
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                            <a class="btn btn-subtle" href="/registrarse">
+                                <i class="bi bi-person-plus me-1"></i>Registrarse
+                            </a>
+                            <a class="btn btn-primary btn-login" href="/login">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar sesion
+                            </a>
+                        @endauth
+                    </div>
+                </div>
             </div>
-
-            
-            <div class="d-flex align-items-center">
-                @auth
-                    {{-- Esto se muestra SOLO si el usuario inició sesión --}}
-                    <span class="navbar-text me-3 text-white">
-                        <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->nombre }}
-                    </span>
-
-                    @if(auth()->user()->rol && auth()->user()->rol->nombre === 'admin')
-                        {{-- Enlace exclusivo para el Administrador --}}
-                        <a class="nav-link me-3 text-warning" href="/adminDashboard">
-                            <i class="me-1"></i>Panel de Gestion
-                        </a>
-                    @else
-                        {{-- Enlace exclusivo para los Clientes --}}
-                        <a class="nav-link me-3" href="/carrito">
-                            <i class="bi bi-cart3 me-1"></i>
-                            <span class="badge rounded-pill bg-danger" style="font-size: 0.65rem;">0</span>
-                        </a>
-                    @endif
-
-                    {{-- Botón para Cerrar Sesión (Muy importante para poder salir) --}}
-                    <form action="/logout" method="POST" class="d-inline m-0">
-                        @csrf
-                        <button type="submit" class="btn btn-link nav-link text-danger p-0" style="border: none; background: none;">
-                            <i class="me-1"></i>Salir
-                        </button>
-                    </form>
-
-                @else
-                    {{-- Esto se muestra SOLO si el usuario es un visitante (Invitado) --}}
-                    <a class="nav-link me-3" href="/registrarse">
-                        <i class="bi bi-person-plus me-1"></i>Registrarse
-                    </a>
-                    <a class="nav-link" href="/login">
-                        <i class=" me-1"></i>Iniciar Sesión
-                    </a>
-                @endauth
-            </div>
-
-        </div>
-    </div>
-</nav>
+        </nav>
     </header>
 
     <main class="py-5 flex-grow-1">
@@ -89,39 +109,59 @@
         </div>
     </main>
 
-    <footer class="text-white py-4 footer-links">
-    <div class="container">
-        <div class="row align-items-center">
-
-            <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                <p class="mb-0 text-white-50">© Punto Electrónico</p>
-            </div>
-
-            <div class="col-md-4 d-flex justify-content-center mb-3 mb-md-0">
-                <a href="/" class="d-inline-block" aria-label="Logo">
-                    <img src="{{ asset('images/LOGO.png') }}" width="60" height="50" alt="Logo" class="img-fluid">
-                </a>
-            </div>
-
-            <div class="col-md-4">
-                <ul class="nav justify-content-center justify-content-md-end">
-                    <li class="nav-item"><a href="/productos" class="nav-link px-2 text-secondary hover-white">Productos</a></li>
-                    <li class="nav-item"><a href="/comercializacion" class="nav-link px-2 text-secondary hover-white">Comercialización</a></li>
-                    <li class="nav-item"><a href="/quienesSomos" class="nav-link px-2 text-secondary hover-white">Quiénes somos</a></li>
-                    <li class="nav-item"><a href="/terminosYUsos" class="nav-link px-2 text-secondary hover-white">Términos y Usos</a></li>
-                    <li class="nav-link px-2 text-secondary hover-white">Redes sociales
-                        <a href="https://www.facebook.com/puntoelectronic" class="text-secondary hover-white ms-2" aria-label="Facebook">
-                            <i class="bi bi-facebook"></i>
+    @unless(request()->is('admin') || request()->is('adminDashboard'))
+        <footer class="site-footer footer-links">
+            <div class="container">
+                <div class="row g-4 align-items-start">
+                    <div class="col-lg-4">
+                        <a href="/" class="footer-brand d-inline-flex align-items-center gap-3 text-decoration-none">
+                            <img src="{{ asset('images/LOGO.png') }}" width="64" height="52" alt="Punto Electronico">
+                            <span>Punto Electronico</span>
                         </a>
-                        <a href="https://www.instagram.com/puntoelectronic" class="text-secondary hover-white ms-2" aria-label="Instagram">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                    </li>
-                </ul>
+                        <p class="footer-copy mt-3 mb-0">
+                            Tecnologia seleccionada, soporte cercano y soluciones para actualizar tu dia a dia.
+                        </p>
+                    </div>
+
+                    <div class="col-6 col-lg-2">
+                        <h2 class="footer-title">Tienda</h2>
+                        <nav class="footer-nav">
+                            <a href="/productos">Productos</a>
+                            <a href="/comercializacion">Comercializacion</a>
+                            <a href="/contacto">Contacto</a>
+                        </nav>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <h2 class="footer-title">Empresa</h2>
+                        <nav class="footer-nav">
+                            <a href="/quienesSomos">Quienes somos</a>
+                            <a href="/consultas">Consultas</a>
+                            <a href="/terminosYUsos">Terminos y Usos</a>
+                        </nav>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <h2 class="footer-title">Redes</h2>
+                        <div class="footer-social">
+                            <a href="https://www.facebook.com/puntoelectronic" aria-label="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="https://www.instagram.com/puntoelectronic" aria-label="Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                        </div>
+                        <p class="footer-copy mt-3 mb-0">Corrientes, Argentina</p>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <span>Punto Electronico</span>
+                    <span>Atencion y tecnologia con respaldo.</span>
+                </div>
             </div>
-        </div>
-    </div>
-</footer>
+        </footer>
+    @endunless
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @yield('extra-js')

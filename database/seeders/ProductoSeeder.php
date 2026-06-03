@@ -2,48 +2,79 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Categoria;
+use App\Models\Producto;
 
 class ProductoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('productos')->insert([
+        $productos = [
             [
+                'categoria' => 'Computadoras',
                 'nombre' => 'MacBook Air',
-                'descripcion' => 'Laptop ultraligera y potente de Apple con procesador M3',
+                'descripcion' => 'Laptop ultraligera y potente de Apple con procesador M3.',
                 'precio' => 1299.99,
                 'stock' => 15,
-                'activo' => true,
-                'url_imagen' => 'https://via.placeholder.com/300?text=MacBook+Air',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'url_imagen' => 'images/productos.png',
             ],
             [
+                'categoria' => 'Computadoras',
                 'nombre' => 'MacBook Pro',
-                'descripcion' => 'Laptop profesional de Apple con procesador M3 Max',
+                'descripcion' => 'Laptop profesional de Apple con alto rendimiento para trabajo exigente.',
                 'precio' => 1999.99,
                 'stock' => 10,
-                'activo' => true,
-                'url_imagen' => 'https://via.placeholder.com/300?text=MacBook+Pro',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'url_imagen' => 'images/productos.png',
             ],
             [
+                'categoria' => 'Smartphones',
                 'nombre' => 'iPhone 17',
-                'descripcion' => 'Teléfono inteligente de Apple con tecnología de última generación',
+                'descripcion' => 'Telefono inteligente con camara avanzada, gran autonomia y pantalla de alta calidad.',
                 'precio' => 899.99,
                 'stock' => 25,
-                'activo' => true,
-                'url_imagen' => 'https://via.placeholder.com/300?text=iPhone+17',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'url_imagen' => 'images/novedades.png',
             ],
-        ]);
+            [
+                'categoria' => 'Audio',
+                'nombre' => 'Auriculares Wireless JBL Quantum',
+                'descripcion' => 'Audio envolvente, conexion Bluetooth y autonomia extendida.',
+                'precio' => 149.99,
+                'stock' => 18,
+                'url_imagen' => 'images/ofertas.png',
+            ],
+            [
+                'categoria' => 'Wearables',
+                'nombre' => 'Smartwatch Pro',
+                'descripcion' => 'Monitor de salud, GPS integrado y notificaciones inteligentes.',
+                'precio' => 199.99,
+                'stock' => 8,
+                'url_imagen' => 'images/conocenos.png',
+            ],
+            [
+                'categoria' => 'TV y Monitores',
+                'nombre' => 'Monitor BENQ 240HZ ZOWIE',
+                'descripcion' => 'Monitor gamer de alta tasa de refresco, ideal para competicion.',
+                'precio' => 349.99,
+                'stock' => 6,
+                'url_imagen' => 'images/bannerInicio.png',
+            ],
+        ];
+
+        foreach ($productos as $producto) {
+            $categoria = Categoria::where('nombre', $producto['categoria'])->first();
+
+            Producto::updateOrCreate(
+                ['nombre' => $producto['nombre']],
+                [
+                    'categoria_id' => $categoria?->id,
+                    'descripcion' => $producto['descripcion'],
+                    'precio' => $producto['precio'],
+                    'stock' => $producto['stock'],
+                    'activo' => true,
+                    'url_imagen' => $producto['url_imagen'],
+                ]
+            );
+        }
     }
 }
