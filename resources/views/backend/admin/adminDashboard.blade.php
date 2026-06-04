@@ -762,9 +762,9 @@
                                                 $clienteNombre = $pedido->cliente_nombre ?? optional($pedido->usuario)->nombre;
                                                 $clienteEmail = $pedido->cliente_email ?? optional($pedido->usuario)->email;
                                                 $metodosPago = [
-                                                    'efectivo' => 'Efectivo al recibir',
-                                                    'transferencia' => 'Transferencia bancaria',
-                                                    'tarjeta' => 'Tarjeta al retirar',
+                                                    'efectivo' => 'Efectivo al retirar',
+                                                    'transferencia' => 'Mercado Pago',
+                                                    'tarjeta' => 'Tarjeta debito/credito',
                                                 ];
                                                 $subtotalPedido = $pedido->subtotal ?? (($pedido->producto->precio ?? 0) * $pedido->cantidad);
                                             @endphp
