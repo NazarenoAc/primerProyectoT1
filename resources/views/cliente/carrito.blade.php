@@ -97,29 +97,54 @@
 
                 <form action="{{ route('carrito.confirmar') }}" method="POST" class="mt-4">
                     @csrf
+                    
                     <div class="border-top pt-3 mt-3">
-                        <h3 class="h6 fw-bold mb-3">Datos de envio</h3>
+                        <h3 class="h6 fw-bold mb-3">Tipo de entrega</h3>
                         <div class="mb-3">
-                            <label class="form-label" for="cliente_telefono">Telefono</label>
-                            <input id="cliente_telefono" name="cliente_telefono" type="text" class="form-control" value="{{ old('cliente_telefono') }}" placeholder="Ej: 11 5555 5555" @disabled($items->isEmpty()) required>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="tipo_entrega" id="retiro_local" value="retiro" {{ old('tipo_entrega') == 'retiro' ? 'checked' : '' }} @disabled($items->isEmpty()) required>
+                                <label class="form-check-label" for="retiro_local">
+                                    Retiro en el local
+                                    <small class="d-block text-secondary">Facena UNNE - Retiro sin cargo</small>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo_entrega" id="envio_domicilio" value="envio" {{ old('tipo_entrega') == 'envio' ? 'checked' : '' }} @disabled($items->isEmpty())>
+                                <label class="form-check-label" for="envio_domicilio">
+                                    Envío a domicilio
+                                    <small class="d-block text-secondary">Costo según ubicación</small>
+                                </label>
+                            </div>
+                            @error('tipo_entrega')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
+                    </div>
+
+                    <div class="mt-3">
+                            <label class="form-label" for="cliente_telefono">Teléfono</label>
+                            <input id="cliente_telefono" name="cliente_telefono" type="text" class="form-control" value="{{ old('cliente_telefono') }}" placeholder="Ej: 11 5555 5555" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
+                        </div>
+
+                    <div id="datos_envio_container" style="display: {{ old('tipo_entrega') == 'envio' ? 'block' : 'none' }};">
+                        
                         <div class="mb-3">
-                            <label class="form-label" for="envio_direccion">Direccion</label>
-                            <input id="envio_direccion" name="envio_direccion" type="text" class="form-control" value="{{ old('envio_direccion') }}" placeholder="Calle, numero, piso" @disabled($items->isEmpty()) required>
+                            <label class="form-label" for="envio_direccion">Dirección</label>
+                            <input id="envio_direccion" name="envio_direccion" type="text" class="form-control" value="{{ old('envio_direccion') }}" placeholder="Calle, número, piso" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
                         </div>
                         <div class="row g-2">
                             <div class="col-md-6">
                                 <label class="form-label" for="envio_ciudad">Ciudad</label>
-                                <input id="envio_ciudad" name="envio_ciudad" type="text" class="form-control" value="{{ old('envio_ciudad') }}" @disabled($items->isEmpty()) required>
+                                <input id="envio_ciudad" name="envio_ciudad" type="text" class="form-control" value="{{ old('envio_ciudad') }}" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="envio_provincia">Provincia</label>
-                                <input id="envio_provincia" name="envio_provincia" type="text" class="form-control" value="{{ old('envio_provincia') }}" @disabled($items->isEmpty()) required>
+                                <input id="envio_provincia" name="envio_provincia" type="text" class="form-control" value="{{ old('envio_provincia') }}" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
                             </div>
                         </div>
                         <div class="mt-3">
-                            <label class="form-label" for="envio_codigo_postal">Codigo postal</label>
-                            <input id="envio_codigo_postal" name="envio_codigo_postal" type="text" class="form-control" value="{{ old('envio_codigo_postal') }}" @disabled($items->isEmpty()) required>
+                            <label class="form-label" for="envio_codigo_postal">Código postal</label>
+                            <input id="envio_codigo_postal" name="envio_codigo_postal" type="text" class="form-control" value="{{ old('envio_codigo_postal') }}" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
                         </div>
                     </div>
 
@@ -127,9 +152,9 @@
                         <label class="form-label" for="metodo_pago">Metodo de pago</label>
                         <select id="metodo_pago" name="metodo_pago" class="form-select" @disabled($items->isEmpty()) required>
                             <option value="">Seleccionar</option>
-                            <option value="efectivo" @selected(old('metodo_pago') === 'efectivo')>Efectivo al recibir</option>
-                            <option value="transferencia" @selected(old('metodo_pago') === 'transferencia')>Transferencia bancaria</option>
-                            <option value="tarjeta" @selected(old('metodo_pago') === 'tarjeta')>Tarjeta al retirar</option>
+                            <option value="efectivo" @selected(old('metodo_pago') === 'efectivo')>Efectivo en el local</option>
+                            <option value="transferencia" @selected(old('metodo_pago') === 'transferencia')>Mercado Pago</option>
+                            <option value="tarjeta" @selected(old('metodo_pago') === 'tarjeta')>Tarjeta debito/credito</option>
                         </select>
                     </div>
 
@@ -141,4 +166,43 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('extra-js')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const radioRetiro = document.getElementById('retiro_local');
+    const radioEnvio = document.getElementById('envio_domicilio');
+    const datosEnvioContainer = document.getElementById('datos_envio_container');
+    
+    if (!radioRetiro || !radioEnvio || !datosEnvioContainer) return;
+    
+    const inputsEnvio = datosEnvioContainer.querySelectorAll('input, select, textarea');
+    
+    function toggleDatosEnvio() {
+        if (radioEnvio.checked) {
+            datosEnvioContainer.style.display = 'block';
+            inputsEnvio.forEach(input => {
+                if (input.id !== 'cliente_telefono') {
+                    input.required = true;
+                    input.disabled = false;
+                }
+            });
+        } else {
+            datosEnvioContainer.style.display = 'none';
+            inputsEnvio.forEach(input => {
+                if (input.id !== 'cliente_telefono') {
+                    input.required = false;
+                    input.disabled = true;
+                }
+            });
+        }
+    }
+    
+    radioRetiro.addEventListener('change', toggleDatosEnvio);
+    radioEnvio.addEventListener('change', toggleDatosEnvio);
+    
+    toggleDatosEnvio();
+});
+</script>
 @endsection

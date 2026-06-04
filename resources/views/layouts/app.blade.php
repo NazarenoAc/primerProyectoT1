@@ -42,16 +42,9 @@
                     <div class="navbar-actions d-flex align-items-lg-center gap-3 mt-3 mt-lg-0">
                         @auth
                             @if(! auth()->user()->rol || auth()->user()->rol->nombre !== 'admin')
-                                @php
-                                    $carritoCantidad = 0;
-                                    if (\Illuminate\Support\Facades\Schema::hasTable('carrito_items')) {
-                                        $carritoCantidad = \App\Models\CarritoItem::where('usuario_id', auth()->id())->sum('cantidad');
-                                    }
-                                @endphp
-
-                                <a href="/carrito" class="header-cart" aria-label="Ver carrito">
+                                <a href="#carritoOffcanvas" data-bs-toggle="offcanvas" aria-controls="carritoOffcanvas" class="header-cart text-decoration-none" style="cursor: pointer;">
                                     <i class="bi bi-cart3"></i>
-                                    <strong>{{ $carritoCantidad }}</strong>
+                                    <strong>{{ $cartCount ?? 0 }}</strong>
                                 </a>
                             @endif
 
@@ -165,5 +158,106 @@
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @yield('extra-js')
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoOffcanvas" aria-labelledby="carritoOffcanvasLabel" style="width: 400px; border-left: none; box-shadow: -5px 0 15px rgba(0,0,0,0.05);">
+    
+    <div class="offcanvas-header pb-2">
+        <h2 class="offcanvas-title fw-semibold fs-4" id="carritoOffcanvasLabel">Mi bolsa</h2>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column p-0">
+        <div class="cart-items px-3 py-2 flex-grow-1" style="overflow-y: auto;">
+            
+            @if(isset($cartItems) && $cartItems->isNotEmpty())
+                @foreach($cartItems as $item)
+                    @php
+                        $fallbackPorCategoria = match ($item->producto->categoria->nombre ?? '') {
+                            'Smartphones' => asset('images/novedades.png'),
+                            'Computadoras' => asset('images/productos.png'),
+                            'Audio' => asset('images/ofertas.png'),
+                            'TV y Monitores' => asset('images/bannerInicio.png'),
+                            'Wearables' => asset('images/conocenos.png'),
+                            default => asset('images/productos.png'),
+                        };
+
+                        $imagenProducto = $item->producto->url_imagen
+                            ? (\Illuminate\Support\Str::startsWith($item->producto->url_imagen, ['http://', 'https://'])
+                                ? $item->producto->url_imagen
+                                : asset($item->producto->url_imagen))
+                            : $fallbackPorCategoria;
+                    @endphp
+
+                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom position-relative">
+                        
+                        <div style="width: 80px; height: 100px; flex-shrink: 0; background-color: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <img src="{{ $imagenProducto }}" alt="{{ $item->producto->nombre }}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null;this.src='{{ $fallbackPorCategoria }}';">
+                        </div>
+
+                        <div class="d-flex flex-column w-100 pt-1">
+                            
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h6 class="mb-1 text-uppercase fw-normal" style="font-size: 0.85rem; padding-right: 25px; line-height: 1.4;">
+                                    {{ $item->producto->nombre }}
+                                </h6>
+                                
+                                <form action="{{ route('carrito.eliminar', $item) }}" method="POST" class="position-absolute top-0 end-0 mt-1">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0 text-secondary" title="Quitar">
+                                        <i class="bi bi-trash3 fs-5"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div class="fw-bold fs-6 mt-1">
+                                ${{ number_format($item->subtotal, 2, ',', '.') }}
+                            </div>
+
+                            <div class="mt-auto d-flex justify-content-end">
+                                <div class="d-flex align-items-center border rounded-pill px-2 py-1" style="background: #fff; width: fit-content;">
+                                    <form action="{{ route('carrito.actualizar', $item) }}" method="POST" class="m-0">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="cantidad" value="{{ max(1, $item->cantidad - 1) }}">
+                                        <button type="submit" class="btn btn-sm btn-link text-dark text-decoration-none p-0 px-2 fw-bold" style="font-size: 1.1rem;" @disabled($item->cantidad <= 1)>-</button>
+                                    </form>
+                                    
+                                    <span class="mx-2 fw-semibold" style="font-size: 0.95rem;">{{ $item->cantidad }}</span>
+                                    
+                                    <form action="{{ route('carrito.actualizar', $item) }}" method="POST" class="m-0">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="cantidad" value="{{ min($item->producto->stock, $item->cantidad + 1) }}">
+                                        <button type="submit" class="btn btn-sm btn-link text-dark text-decoration-none p-0 px-2 fw-bold" style="font-size: 1.1rem;" @disabled($item->cantidad >= $item->producto->stock)>+</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="text-center py-5 mt-5 text-secondary">
+                    <i class="bi bi-bag-x fs-1 d-block mb-3"></i>
+                    <p class="fs-5">Tu carrito está vacío</p>
+                </div>
+            @endif
+        </div>
+
+        @if(isset($cartItems) && $cartItems->isNotEmpty())
+            <div class="p-4 bg-white mt-auto border-top">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-bold fs-5">Subtotal</span>
+                    <span class="fw-bold fs-5">${{ number_format($cartTotal ?? 0, 2, ',', '.') }}</span>
+                </div>
+                
+                <a href="/carrito" class="btn text-white w-100 fw-bold py-3 fs-5" style="background-color: #000; border-radius: 8px;">
+                    Iniciar compra
+                </a>
+            </div>
+        @endif
+    </div>
+</div>
+
 </body>
 </html>

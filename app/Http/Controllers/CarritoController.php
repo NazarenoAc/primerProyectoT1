@@ -68,65 +68,91 @@ class CarritoController extends Controller
     }
 
     public function confirmar(Request $request)
-    {
-        $items = CarritoItem::with('producto')
-            ->where('usuario_id', $request->user()->id)
-            ->get();
+{
+    $items = CarritoItem::with('producto')
+        ->where('usuario_id', $request->user()->id)
+        ->get();
 
-        if ($items->isEmpty()) {
-            return back()->withErrors(['carrito' => 'Tu carrito esta vacio.']);
-        }
-
-        $validated = $request->validate([
-            'cliente_telefono' => 'required|string|max:40',
-            'envio_direccion' => 'required|string|max:255',
-            'envio_ciudad' => 'required|string|max:120',
-            'envio_provincia' => 'required|string|max:120',
-            'envio_codigo_postal' => 'required|string|max:30',
-            'metodo_pago' => 'required|in:efectivo,transferencia,tarjeta',
-        ]);
-
-        foreach ($items as $item) {
-            if ($item->producto->stock < $item->cantidad) {
-                return back()->withErrors(['carrito' => 'No hay stock suficiente para ' . $item->producto->nombre . '.']);
-            }
-        }
-
-        DB::transaction(function () use ($items, $request, $validated) {
-            foreach ($items as $item) {
-                $precioUnitario = (float) $item->producto->precio;
-
-                $pedidoData = [
-                    'usuario_id' => $request->user()->id,
-                    'producto_id' => $item->producto_id,
-                    'tipo' => 'cliente',
-                    'estado' => 'pendiente',
-                    'cantidad' => $item->cantidad,
-                    'detalle' => 'Pedido generado desde carrito',
-                ];
-
-                if (Schema::hasColumn('pedidos', 'cliente_nombre')) {
-                    $pedidoData = array_merge($pedidoData, [
-                        'cliente_nombre' => $request->user()->nombre,
-                        'cliente_email' => $request->user()->email,
-                        'cliente_telefono' => $validated['cliente_telefono'],
-                        'envio_direccion' => $validated['envio_direccion'],
-                        'envio_ciudad' => $validated['envio_ciudad'],
-                        'envio_provincia' => $validated['envio_provincia'],
-                        'envio_codigo_postal' => $validated['envio_codigo_postal'],
-                        'metodo_pago' => $validated['metodo_pago'],
-                        'precio_unitario' => $precioUnitario,
-                        'subtotal' => $precioUnitario * $item->cantidad,
-                    ]);
-                }
-
-                Pedido::create($pedidoData);
-
-                $item->producto->decrement('stock', $item->cantidad);
-                $item->delete();
-            }
-        });
-
-        return redirect('/mis-pedidos')->with('success', 'Pedido generado correctamente.');
+    if ($items->isEmpty()) {
+        return back()->withErrors(['carrito' => 'Tu carrito está vacío.']);
     }
+
+    // Validación base
+    $rules = [
+        'tipo_entrega' => 'required|in:retiro,envio',
+        'cliente_telefono' => 'required|string|max:40',
+        'metodo_pago' => 'required|in:efectivo,transferencia,tarjeta',
+    ];
+
+    // Si elige envío, los campos de dirección son obligatorios
+    if ($request->tipo_entrega === 'envio') {
+        $rules['envio_direccion'] = 'required|string|max:255';
+        $rules['envio_ciudad'] = 'required|string|max:120';
+        $rules['envio_provincia'] = 'required|string|max:120';
+        $rules['envio_codigo_postal'] = 'required|string|max:30';
+    }
+
+    $validated = $request->validate($rules);
+
+    // Verificar stock
+    foreach ($items as $item) {
+        if ($item->producto->stock < $item->cantidad) {
+            return back()->withErrors(['carrito' => 'No hay stock suficiente para ' . $item->producto->nombre . '.']);
+        }
+    }
+
+    DB::transaction(function () use ($items, $request, $validated) {
+        foreach ($items as $item) {
+            $precioUnitario = (float) $item->producto->precio;
+
+            // Datos base del pedido
+            $pedidoData = [
+                'usuario_id' => $request->user()->id,
+                'producto_id' => $item->producto_id,
+                'tipo' => 'cliente',
+                'estado' => 'pendiente',
+                'cantidad' => $item->cantidad,
+                'detalle' => 'Pedido generado desde carrito',
+                'metodo_pago' => $validated['metodo_pago'],
+                'precio_unitario' => $precioUnitario,
+                'subtotal' => $precioUnitario * $item->cantidad,
+            ];
+
+            // Si tu tabla pedidos tiene columna 'tipo_entrega', agrega:
+            // $pedidoData['tipo_entrega'] = $validated['tipo_entrega'];
+
+            // Campos de cliente/dirección (si existen en la tabla)
+            if (Schema::hasColumn('pedidos', 'cliente_nombre')) {
+                $pedidoData['cliente_nombre'] = $request->user()->nombre;
+                $pedidoData['cliente_email'] = $request->user()->email;
+                $pedidoData['cliente_telefono'] = $validated['cliente_telefono'];
+            }
+
+            // ... dentro del DB::transaction en CarritoController.php
+            if ($request->tipo_entrega === 'envio') {
+                if (Schema::hasColumn('pedidos', 'envio_direccion')) {
+                    $pedidoData['envio_direccion'] = $validated['envio_direccion'];
+                    $pedidoData['envio_ciudad'] = $validated['envio_ciudad'];
+                    $pedidoData['envio_provincia'] = $validated['envio_provincia'];
+                    $pedidoData['envio_codigo_postal'] = $validated['envio_codigo_postal'];
+                }
+            } else {
+                // Si es retiro, dejamos estos campos explícitamente en null
+                if (Schema::hasColumn('pedidos', 'envio_direccion')) {
+                    $pedidoData['envio_direccion'] = null;
+                    $pedidoData['envio_ciudad'] = null;
+                    $pedidoData['envio_provincia'] = null;
+                    $pedidoData['envio_codigo_postal'] = null;
+                }
+            }
+
+            Pedido::create($pedidoData);
+
+            $item->producto->decrement('stock', $item->cantidad);
+            $item->delete();
+        }
+    });
+
+    return redirect('/mis-pedidos')->with('success', 'Pedido generado correctamente.');
+}
 }

@@ -28,9 +28,9 @@
                     @forelse($pedidos as $pedido)
                         @php
                             $metodosPago = [
-                                'efectivo' => 'Efectivo al recibir',
-                                'transferencia' => 'Transferencia bancaria',
-                                'tarjeta' => 'Tarjeta al retirar',
+                                'efectivo' => 'Efectivo al retirar',
+                                'transferencia' => 'Mercado Pago',
+                                'tarjeta' => 'Tarjeta debito/credito',
                             ];
                             $subtotalPedido = $pedido->subtotal ?? (($pedido->producto->precio ?? 0) * $pedido->cantidad);
                         @endphp
@@ -38,13 +38,14 @@
                             <td>{{ $pedido->producto->nombre ?? 'Sin producto' }}</td>
                             <td>{{ $pedido->cantidad }}</td>
                             <td>
-                                @if($pedido->envio_direccion)
+                                @if(!empty($pedido->envio_direccion) && $pedido->envio_direccion !== 'Retiro en local')
                                     <div>{{ $pedido->envio_direccion }}</div>
-                                    <small class="text-secondary">{{ $pedido->envio_ciudad }}, {{ $pedido->envio_provincia }}</small>
+                                    <small class="text-secondary">{{ $pedido->envio_ciudad ?? '' }}, {{ $pedido->envio_provincia ?? '' }}</small>
                                 @else
-                                    <span class="text-secondary">Sin datos de envio</span>
+                                    <div><strong>Retiro en local</strong></div>
+                                    <small class="text-secondary">Facena UNNE - Retiro sin cargo</small>
                                 @endif
-                                <small class="text-secondary d-block">Pago: {{ $metodosPago[$pedido->metodo_pago] ?? ($pedido->metodo_pago ?? 'Sin definir') }}</small>
+                                <small class="text-secondary d-block mt-1">Pago: {{ $metodosPago[$pedido->metodo_pago] ?? ($pedido->metodo_pago ?? 'Sin definir') }}</small>
                             </td>
                             <td>${{ number_format($subtotalPedido, 2, ',', '.') }}</td>
                             <td>{{ ucfirst($pedido->estado) }}</td>

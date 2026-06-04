@@ -17,7 +17,7 @@ class ProductoSeeder extends Seeder
                 'descripcion' => 'Laptop ultraligera y potente de Apple con procesador M3.',
                 'precio' => 1299.99,
                 'stock' => 15,
-                'url_imagen' => 'images/productos.png',
+                'url_imagen' => 'images/macbookA.jpg',
             ],
             [
                 'categoria' => 'Computadoras',
@@ -25,7 +25,7 @@ class ProductoSeeder extends Seeder
                 'descripcion' => 'Laptop profesional de Apple con alto rendimiento para trabajo exigente.',
                 'precio' => 1999.99,
                 'stock' => 10,
-                'url_imagen' => 'images/productos.png',
+                'url_imagen' => 'images/macbookP.jpg',
             ],
             [
                 'categoria' => 'Smartphones',
@@ -33,23 +33,15 @@ class ProductoSeeder extends Seeder
                 'descripcion' => 'Telefono inteligente con camara avanzada, gran autonomia y pantalla de alta calidad.',
                 'precio' => 899.99,
                 'stock' => 25,
-                'url_imagen' => 'images/novedades.png',
+                'url_imagen' => 'images/ip17.jpg',
             ],
             [
                 'categoria' => 'Audio',
-                'nombre' => 'Auriculares Wireless JBL Quantum',
+                'nombre' => 'Auriculares inalámbricos JBL Quantum',
                 'descripcion' => 'Audio envolvente, conexion Bluetooth y autonomia extendida.',
                 'precio' => 149.99,
                 'stock' => 18,
-                'url_imagen' => 'images/ofertas.png',
-            ],
-            [
-                'categoria' => 'Wearables',
-                'nombre' => 'Smartwatch Pro',
-                'descripcion' => 'Monitor de salud, GPS integrado y notificaciones inteligentes.',
-                'precio' => 199.99,
-                'stock' => 8,
-                'url_imagen' => 'images/conocenos.png',
+                'url_imagen' => 'images/auricJBLQ.jpg',
             ],
             [
                 'categoria' => 'TV y Monitores',
@@ -57,7 +49,7 @@ class ProductoSeeder extends Seeder
                 'descripcion' => 'Monitor gamer de alta tasa de refresco, ideal para competicion.',
                 'precio' => 349.99,
                 'stock' => 6,
-                'url_imagen' => 'images/bannerInicio.png',
+                'url_imagen' => 'images/monitorBenq25.jpg',
             ],
         ];
 

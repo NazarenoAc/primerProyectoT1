@@ -23,8 +23,8 @@
                     <ul class="list-unstyled">
                         <li><strong>Entrega Estándar:</strong> 3-5 días hábiles</li>
                         <li><strong>Entrega Express:</strong> 1-2 días hábiles</li>
-                        <li><strong>Entrega en el Día:</strong> Disponible en áreas metropolitanas</li>
-                        <li><strong>Recogida en Tienda:</strong> Gratuita y inmediata</li>
+                        <li><strong>Entrega en el Día:</strong> Disponible en áreas cercanas</li>
+                        <li><strong>Recogida en Tienda:</strong> Gratuita e inmediata</li>
                     </ul>
                 </div>
             </div>

@@ -105,54 +105,55 @@
             </div>
         </section>
 
-        <section id="categorias" class="mb-5">
+<section id="categorias" class="mb-5">
             <div class="container pt-4">
                 <div class="text-center mb-1">
                     <h2 class="h3 fw-bold text-light">Explora por categoría</h2>
                     <p class="text-light mx-auto" style="max-width:720px;">Encuentra exactamente lo que buscas en nuestras categorías destacadas.</p>
                 </div>
 
-                <div class="row g-4 pb-5">
+                <div class="row g-4 pb-5 justify-content-center">
                     <div class="col-6 col-md-3">
-                        <a href="/productos" class="text-decoration-none">
+                        <a href="{{ route('productos.index', ['categoria' => 'Smartphones']) }}" class="text-decoration-none">
                             <div class="card h-100 border-0">
                                 <div class="card-body text-center">
                                     <div class="category-icon"><i class="bi bi-phone-fill"></i></div>
                                     <h4 class="text-light">Smartphones</h4>
-                                    <div class="text-light">120+ productos</div>
                                 </div>
                             </div>
                         </a>
                     </div>
+                    
                     <div class="col-6 col-md-3">
-                        <a href="/productos" class="text-decoration-none">
+                        <a href="{{ route('productos.index', ['categoria' => 'Computadoras']) }}" class="text-decoration-none">
                             <div class="card h-100 border-0">
                                 <div class="card-body text-center">
                                     <div class="category-icon"><i class="bi bi-laptop"></i></div>
                                     <h4 class="text-light">Laptops</h4>
-                                    <div class="text-light">85+ productos</div>
                                 </div>
                             </div>
                         </a>
                     </div>
+                    
                     <div class="col-6 col-md-3">
-                        <a href="/productos" class="text-decoration-none">
+                        <a href="{{ route('productos.index', ['categoria' => 'Audio']) }}" class="text-decoration-none">
                             <div class="card h-100 border-0">
                                 <div class="card-body text-center">
                                     <div class="category-icon"><i class="bi bi-headphones"></i></div>
                                     <h4 class="text-light">Audio</h4>
-                                    <div class="text-light">200+ productos</div>
                                 </div>
                             </div>
                         </a>
                     </div>
+                    
+                    
+
                     <div class="col-6 col-md-3">
-                        <a href="/productos" class="text-decoration-none">
+                        <a href="{{ route('productos.index', ['categoria' => 'TV y Monitores']) }}" class="text-decoration-none">
                             <div class="card h-100 border-0">
                                 <div class="card-body text-center">
-                                    <div class="category-icon"><i class="bi bi-watch"></i></div>
-                                    <h4 class="text-light">Wearables</h4>
-                                    <div class="text-light">60+ productos</div>
+                                    <div class="category-icon"><i class="bi bi-tv"></i></div>
+                                    <h4 class="text-light">TV y Monitores</h4>
                                 </div>
                             </div>
                         </a>
