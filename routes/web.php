@@ -63,6 +63,7 @@ Route::middleware(['auth', 'rol:admin'])->group(function () {
     Route::post('/admin/pedidos/restock', [AdminController::class, 'crearPedidoRestock'])->name('admin.pedidos.restock');
     Route::patch('/admin/pedidos/{pedido}/estado', [AdminController::class, 'actualizarEstadoPedido'])->name('admin.pedidos.estado');
     Route::patch('/admin/consultas/{consulta}/estado', [AdminController::class, 'actualizarEstadoConsulta'])->name('admin.consultas.estado');
+    Route::get('/admin/pedidos/{pedido}/detalles', [AdminController::class, 'obtenerDetallePedido'])->name('admin.pedidos.detalles');
 });
 
 Route::get('/novedades', function () {

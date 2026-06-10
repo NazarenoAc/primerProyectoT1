@@ -2,369 +2,6 @@
 
 @section('title', 'Panel Administrador')
 
-@section('extra-css')
-<style>
-    .admin-page {
-        color: #152033;
-    }
-
-    .admin-shell {
-        display: grid;
-        grid-template-columns: 250px minmax(0, 1fr);
-        gap: 24px;
-        align-items: start;
-    }
-
-    .admin-sidebar {
-        position: sticky;
-        top: 94px;
-        background: #fff;
-        border: 1px solid #dbe7f5;
-        border-radius: 8px;
-        box-shadow: 0 12px 32px rgba(15, 23, 42, .07);
-        padding: 16px;
-    }
-
-    .admin-sidebar-title {
-        color: #64748b;
-        font-size: .78rem;
-        font-weight: 800;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-    }
-
-    .admin-nav {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .admin-nav .nav-link {
-        align-items: center;
-        border: 0;
-        border-radius: 8px;
-        color: #334155;
-        display: flex;
-        font-weight: 750;
-        gap: 10px;
-        justify-content: flex-start;
-        padding: 11px 12px;
-        text-align: left;
-        width: 100%;
-    }
-
-    .admin-nav .nav-link i {
-        color: #0066cc;
-        font-size: 1rem;
-    }
-
-    .admin-nav .nav-link.active {
-        background: #0066cc;
-        color: #fff;
-    }
-
-    .admin-nav .nav-link.active i {
-        color: #fff;
-    }
-
-    .admin-content {
-        min-width: 0;
-    }
-
-    .admin-hero {
-        background: linear-gradient(135deg, #000922fa 0%, #08314a 58%, #0066cc 100%);
-        border-radius: 8px;
-        color: #fff;
-        padding: 28px;
-        box-shadow: 0 20px 48px rgba(0, 9, 34, .18);
-    }
-
-    .admin-welcome {
-        background: rgba(255, 255, 255, .13);
-        border: 1px solid rgba(255, 255, 255, .22);
-        border-radius: 8px;
-        padding: 14px 16px;
-    }
-
-    .admin-welcome small,
-    .admin-hero p {
-        color: rgba(255, 255, 255, .78);
-    }
-
-    .admin-card {
-        background: #fff !important;
-        border: 1px solid #dbe7f5 !important;
-        border-radius: 8px !important;
-        box-shadow: 0 12px 32px rgba(15, 23, 42, .07);
-        height: 100%;
-    }
-
-    .admin-card .card-body {
-        padding: 22px;
-    }
-
-    .admin-title {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 18px;
-        padding-bottom: 14px;
-        border-bottom: 1px solid #e7eef7;
-    }
-
-    .admin-title-icon,
-    .admin-kpi-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: #e7f1ff;
-        color: #0066cc;
-        flex: 0 0 auto;
-    }
-
-    .admin-title h2 {
-        color: #152033 !important;
-        font-size: 1.05rem;
-        font-weight: 850;
-        margin: 0;
-    }
-
-    .admin-title p,
-    .admin-muted {
-        color: #64748b !important;
-        margin: 0;
-    }
-
-    .admin-kpi .card-body {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        min-height: 96px;
-    }
-
-    .admin-kpi-value {
-        font-size: 1.8rem;
-        font-weight: 850;
-        line-height: 1;
-    }
-
-    .sales-summary {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-    }
-
-    .sales-total {
-        background: #f8fbff;
-        border: 1px solid #e7eef7;
-        border-radius: 8px;
-        padding: 16px;
-    }
-
-    .sales-total-label {
-        color: #64748b;
-        font-size: .86rem;
-        font-weight: 750;
-        margin-bottom: 6px;
-    }
-
-    .sales-total-value {
-        color: #08314a;
-        font-size: 1.7rem;
-        font-weight: 850;
-        line-height: 1;
-    }
-
-    .sales-total small {
-        color: #64748b;
-    }
-
-    .sales-chart {
-        background: #fff;
-        border: 1px solid #dbe7f5;
-        border-radius: 8px;
-        padding: 18px;
-        height: 100%;
-    }
-
-    .sales-chart-title {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 18px;
-    }
-
-    .sales-chart-title h3 {
-        color: #152033;
-        font-size: .98rem;
-        font-weight: 850;
-        margin: 0;
-    }
-
-    .sales-chart-title span {
-        color: #64748b;
-        font-size: .84rem;
-    }
-
-    .sales-bars {
-        align-items: end;
-        display: flex;
-        gap: 10px;
-        height: 170px;
-        padding-top: 8px;
-    }
-
-    .sales-bar-item {
-        align-items: center;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        gap: 8px;
-        min-width: 0;
-    }
-
-    .sales-bar-track {
-        align-items: end;
-        background: #edf5ff;
-        border-radius: 8px;
-        display: flex;
-        height: 124px;
-        overflow: hidden;
-        width: 100%;
-    }
-
-    .sales-bar-fill {
-        background: linear-gradient(180deg, #0066cc 0%, #08314a 100%);
-        border-radius: 8px 8px 0 0;
-        min-height: 4px;
-        width: 100%;
-    }
-
-    .sales-bar-label {
-        color: #64748b;
-        font-size: .76rem;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-    .sales-bar-value {
-        color: #152033;
-        font-size: .78rem;
-        font-weight: 800;
-        text-align: center;
-    }
-
-    .admin-table {
-        --bs-table-bg: transparent;
-        --bs-table-color: #152033;
-        --bs-table-border-color: #e7eef7;
-        margin-bottom: 0;
-    }
-
-    .admin-table thead th {
-        color: #0066cc;
-        font-size: .78rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    .admin-table td,
-    .admin-table th {
-        vertical-align: middle;
-    }
-
-    .admin-stock-form {
-        min-width: 270px;
-    }
-
-    .admin-stock-input {
-        max-width: 92px;
-    }
-
-    .status-dot {
-        width: 10px;
-        height: 10px;
-        display: inline-block;
-        border-radius: 999px;
-        margin-right: 6px;
-        background: #22c55e;
-    }
-
-    .status-dot.warn {
-        background: #f59e0b;
-    }
-
-    .status-dot.danger {
-        background: #ef4444;
-    }
-
-    .admin-pill-row {
-        background: #f8fbff;
-        border: 1px solid #e7eef7;
-        border-radius: 8px;
-        padding: 12px;
-    }
-
-    .admin-select {
-        min-width: 132px;
-    }
-
-    .admin-product-form {
-        background: #f8fbff;
-        border: 1px solid #e7eef7;
-        border-radius: 8px;
-        padding: 18px;
-    }
-
-    .admin-orders-table {
-        min-width: 1080px;
-    }
-
-    @media (max-width: 991px) {
-        .admin-shell {
-            grid-template-columns: 1fr;
-        }
-
-        .admin-sidebar {
-            position: static;
-        }
-
-        .admin-nav {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .sales-summary {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .admin-hero {
-            padding: 20px;
-        }
-
-        .admin-table {
-            min-width: 760px;
-        }
-
-        .admin-stock-form {
-            min-width: 100%;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .admin-nav {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-@endsection
-
 @section('content')
 <div class="admin-page">
     <div class="admin-shell">
@@ -380,14 +17,8 @@
                 <button class="nav-link" id="usuarios-tab" data-bs-toggle="pill" data-bs-target="#usuarios-panel" type="button" role="tab">
                     <i class="bi bi-people"></i>Usuarios
                 </button>
-                <button class="nav-link" id="restock-tab" data-bs-toggle="pill" data-bs-target="#restock-panel" type="button" role="tab">
-                    <i class="bi bi-truck"></i>Restock
-                </button>
-                <button class="nav-link" id="alertas-tab" data-bs-toggle="pill" data-bs-target="#alertas-panel" type="button" role="tab">
-                    <i class="bi bi-exclamation-triangle"></i>Alertas
-                </button>
-                <button class="nav-link" id="pedidos-tab" data-bs-toggle="pill" data-bs-target="#pedidos-panel" type="button" role="tab">
-                    <i class="bi bi-clipboard-check"></i>Pedidos
+                <button class="nav-link" id="ventas-tab" data-bs-toggle="pill" data-bs-target="#ventas-panel" type="button" role="tab">
+                    <i class="bi bi-bag-check"></i>Ventas
                 </button>
                 <button class="nav-link" id="consultas-tab" data-bs-toggle="pill" data-bs-target="#consultas-panel" type="button" role="tab">
                     <i class="bi bi-chat-left-text"></i>Consultas
@@ -677,149 +308,55 @@
                     </div>
                 </section>
 
-                <section class="tab-pane fade" id="restock-panel" role="tabpanel" aria-labelledby="restock-tab">
+                <section class="tab-pane fade" id="ventas-panel" role="tabpanel" aria-labelledby="ventas-tab">
                     <div class="card admin-card">
                         <div class="card-body">
                             <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-truck"></i></span>
+                                <span class="admin-title-icon"><i class="bi bi-bag-check"></i></span>
                                 <div>
-                                    <h2>Restock</h2>
-                                    <p>Crear pedido interno de reposicion.</p>
+                                    <h2>Ventas</h2>
+                                    <p>Órdenes de compra de clientes.</p>
                                 </div>
                             </div>
 
-                            <form action="{{ route('admin.pedidos.restock') }}" method="POST" class="vstack gap-3">
-                                @csrf
-                                <select name="producto_id" class="form-select" required>
-                                    <option value="">Seleccionar producto</option>
-                                    @foreach($productos as $producto)
-                                        <option value="{{ $producto->id }}">{{ $producto->nombre }} - stock {{ $producto->stock }}</option>
-                                    @endforeach
-                                </select>
-                                <input type="number" min="1" max="9999" name="cantidad" class="form-control" placeholder="Cantidad" required>
-                                <textarea name="detalle" rows="3" class="form-control" placeholder="Detalle interno"></textarea>
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="bi bi-plus-circle me-1"></i>Crear pedido
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="tab-pane fade" id="alertas-panel" role="tabpanel" aria-labelledby="alertas-tab">
-                    <div class="card admin-card">
-                        <div class="card-body">
-                            <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-exclamation-triangle"></i></span>
-                                <div>
-                                    <h2>Alertas</h2>
-                                    <p>Productos que necesitan reposicion.</p>
-                                </div>
-                            </div>
-
-                            @forelse($productosBajoStock as $producto)
-                                <div class="admin-pill-row d-flex justify-content-between align-items-center mb-2">
-                                    <div>
-                                        <div class="fw-semibold">{{ $producto->nombre }}</div>
-                                        <small class="admin-muted">Stock actual: {{ $producto->stock }}</small>
+                            @forelse($ventasAgrupadas as $venta)
+                                @php
+                                    $clienteNombre = $venta->cliente_nombre;
+                                    $primerProducto = $venta->productos_items->first();
+                                @endphp
+                                <div class="admin-sales-order">
+                                    <div style="flex: 1;">
+                                        <div class="admin-sales-order-number">Orden #{{ $venta->id }}</div>
+                                        <div class="admin-sales-order-customer">
+                                            @if($clienteNombre)
+                                                {{ $clienteNombre }}
+                                            @else
+                                                Sin información del cliente
+                                            @endif
+                                        </div>
+                                        <div class="admin-sales-order-date">{{ $venta->created_at->format('d/m/Y H:i') }}</div>
                                     </div>
-                                    <span class="badge text-bg-warning">Reponer</span>
+                                    <div class="admin-sales-order-total">${{ number_format($venta->total, 2, ',', '.') }}</div>
+                                    <div class="admin-sales-order-status">
+                                        <form action="{{ route('admin.pedidos.estado', $venta->id) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="estado" class="form-select form-select-sm admin-select" onchange="this.form.submit()">
+                                                @foreach(['pendiente', 'en proceso', 'completado', 'cancelado'] as $estado)
+                                                    <option value="{{ $estado }}" @selected($venta->estado === $estado)>{{ ucfirst($estado) }}</option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="admin-sales-order-actions">
+                                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal" onclick="loadSaleDetails({{ $venta->id }})">
+                                            <i class="bi bi-eye me-1"></i>Ver detalles
+                                        </button>
+                                    </div>
                                 </div>
                             @empty
-                                <p class="admin-muted mb-0">No hay alertas de stock.</p>
+                                <p class="admin-muted mb-0 text-center py-4">No hay ventas registradas.</p>
                             @endforelse
-                        </div>
-                    </div>
-                </section>
-
-                <section class="tab-pane fade" id="pedidos-panel" role="tabpanel" aria-labelledby="pedidos-tab">
-                    <div class="card admin-card">
-                        <div class="card-body">
-                            <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-clipboard-check"></i></span>
-                                <div>
-                                    <h2>Pedidos</h2>
-                                    <p>Ultimos movimientos de clientes o restock.</p>
-                                </div>
-                            </div>
-
-                            <div class="table-responsive">
-                                <table class="table admin-table admin-orders-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Tipo</th>
-                                            <th>Pedido</th>
-                                            <th>Cliente</th>
-                                            <th>Envio / pago</th>
-                                            <th>Cantidad</th>
-                                            <th>Total</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($pedidos as $pedido)
-                                            @php
-                                                $clienteNombre = $pedido->cliente_nombre ?? optional($pedido->usuario)->nombre;
-                                                $clienteEmail = $pedido->cliente_email ?? optional($pedido->usuario)->email;
-                                                $metodosPago = [
-                                                    'efectivo' => 'Efectivo al retirar',
-                                                    'transferencia' => 'Mercado Pago',
-                                                    'tarjeta' => 'Tarjeta debito/credito',
-                                                ];
-                                                $subtotalPedido = $pedido->subtotal ?? (($pedido->producto->precio ?? 0) * $pedido->cantidad);
-                                            @endphp
-                                            <tr>
-                                                <td>{{ ucfirst($pedido->tipo) }}</td>
-                                                <td>
-                                                    <div>{{ $pedido->producto->nombre ?? 'Sin producto' }}</div>
-                                                    <small class="admin-muted">{{ $pedido->created_at->format('d/m/Y H:i') }}</small>
-                                                </td>
-                                                <td>
-                                                    @if($clienteNombre || $clienteEmail)
-                                                        <div class="fw-semibold">{{ $clienteNombre ?? 'Cliente sin nombre' }}</div>
-                                                        <small class="admin-muted d-block">{{ $clienteEmail ?? 'Sin email' }}</small>
-                                                        @if($pedido->cliente_telefono)
-                                                            <small class="admin-muted d-block">Tel: {{ $pedido->cliente_telefono }}</small>
-                                                        @endif
-                                                    @else
-                                                        <span class="admin-muted">Interno</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if($pedido->envio_direccion)
-                                                        <div>{{ $pedido->envio_direccion }}</div>
-                                                        <small class="admin-muted d-block">
-                                                            {{ $pedido->envio_ciudad }}, {{ $pedido->envio_provincia }} ({{ $pedido->envio_codigo_postal }})
-                                                        </small>
-                                                    @else
-                                                        <span class="admin-muted d-block">Sin datos de envio</span>
-                                                    @endif
-                                                    <small class="admin-muted d-block">
-                                                        Pago: {{ $metodosPago[$pedido->metodo_pago] ?? ($pedido->metodo_pago ?? 'Sin definir') }}
-                                                    </small>
-                                                </td>
-                                                <td>{{ $pedido->cantidad }}</td>
-                                                <td>${{ number_format($subtotalPedido, 2, ',', '.') }}</td>
-                                                <td>
-                                                    <form action="{{ route('admin.pedidos.estado', $pedido) }}" method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <select name="estado" class="form-select form-select-sm admin-select" onchange="this.form.submit()">
-                                                            @foreach(['pendiente', 'en proceso', 'completado', 'cancelado'] as $estado)
-                                                                <option value="{{ $estado }}" @selected($pedido->estado === $estado)>{{ ucfirst($estado) }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="7" class="text-center admin-muted py-4">No hay pedidos registrados.</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -882,4 +419,112 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para ver detalles de ventas -->
+<div class="modal fade" id="saleDetailModal" tabindex="-1" aria-labelledby="saleDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saleDetailModalLabel">Detalles de la Venta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="saleDetailContent">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function loadSaleDetails(saleId) {
+    const modalBody = document.getElementById('saleDetailContent');
+    const modal = document.getElementById('saleDetailModal');
+    
+    // Cargar los datos del pedido
+    fetch(`/admin/pedidos/${saleId}/detalles`)
+        .then(response => response.json())
+        .then(data => {
+            let html = `
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong>Orden #${data.id}</strong>
+                        <div class="admin-muted">${data.fecha}</div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="fs-5 fw-bold">${data.total}</div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h6>Cliente</h6>
+                        <div>${data.cliente_nombre || 'Sin información'}</div>
+                        <small class="admin-muted">${data.cliente_email || ''}</small>
+                        ${data.cliente_telefono ? `<div><small class="admin-muted">Tel: ${data.cliente_telefono}</small></div>` : ''}
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Envío</h6>
+                        <div>${data.envio_direccion || 'Sin datos de envío'}</div>
+                        <small class="admin-muted">${data.envio_ciudad}, ${data.envio_provincia} (${data.envio_codigo_postal})</small>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h6 class="mb-3">Productos</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm admin-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="text-end">Cantidad</th>
+                                <th class="text-end">Precio</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            data.productos.forEach(producto => {
+                html += `
+                    <tr>
+                        <td>${producto.nombre}</td>
+                        <td class="text-end">${producto.cantidad}</td>
+                        <td class="text-end">${producto.precio}</td>
+                        <td class="text-end"><strong>${producto.total}</strong></td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <hr>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Método de pago</h6>
+                        <div>${data.metodo_pago}</div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <h6>Estado</h6>
+                        <span class="badge bg-primary">${data.estado}</span>
+                    </div>
+                </div>
+            `;
+            
+            modalBody.innerHTML = html;
+        })
+        .catch(error => {
+            modalBody.innerHTML = '<div class="alert alert-danger">Error al cargar los detalles de la venta.</div>';
+            console.error('Error:', error);
+        });
+}
+</script>
 @endsection

@@ -18,10 +18,48 @@ class AdminController extends Controller
         $productosBajoStock = $productos->where('stock', '<=', 5);
         $consultas = Consulta::latest()->take(12)->get();
         $pedidos = Pedido::with(['producto', 'usuario.rol'])->latest()->take(12)->get();
+        
         $ventas = Pedido::with('producto')
             ->where('tipo', 'cliente')
             ->where('estado', 'completado')
             ->get();
+
+        // Agrupar pedidos de cliente por usuario y fecha para formar órdenes de compra
+        $ventasAgrupadas = collect();
+        $pedidosCliente = Pedido::with(['producto', 'usuario'])
+            ->where('tipo', 'cliente')
+            ->orderByDesc('created_at')
+            ->get()
+            ->groupBy(function ($pedido) {
+                $fecha = $pedido->created_at->format('Y-m-d');
+                $usuarioId = $pedido->usuario_id ?? 'anonimo';
+                return "{$usuarioId}-{$fecha}";
+            });
+
+        foreach ($pedidosCliente as $grupo) {
+            $primerPedido = $grupo->first();
+            $total = $grupo->sum(function ($p) {
+                return (float) ($p->subtotal ?? ((float) ($p->producto->precio ?? 0) * $p->cantidad));
+            });
+
+            $ventasAgrupadas->push((object) [
+                'id' => $primerPedido->id,
+                'usuario_id' => $primerPedido->usuario_id,
+                'usuario' => $primerPedido->usuario,
+                'cliente_nombre' => $primerPedido->cliente_nombre ?? optional($primerPedido->usuario)->nombre,
+                'cliente_email' => $primerPedido->cliente_email ?? optional($primerPedido->usuario)->email,
+                'cliente_telefono' => $primerPedido->cliente_telefono,
+                'envio_direccion' => $primerPedido->envio_direccion,
+                'envio_ciudad' => $primerPedido->envio_ciudad,
+                'envio_provincia' => $primerPedido->envio_provincia,
+                'envio_codigo_postal' => $primerPedido->envio_codigo_postal,
+                'metodo_pago' => $primerPedido->metodo_pago,
+                'estado' => $primerPedido->estado,
+                'created_at' => $primerPedido->created_at,
+                'total' => $total,
+                'productos_items' => $grupo,
+            ]);
+        }
 
         $usuariosPorRol = Usuario::with('rol')
             ->get()
@@ -43,11 +81,26 @@ class AdminController extends Controller
             return (float) ($pedido->subtotal ?? ((float) ($pedido->producto->precio ?? 0) * $pedido->cantidad));
         });
 
+        $ventasSemanaCollection = $ventas->where('created_at', '>=', $inicioSemana);
+        $ventasMesCollection = $ventas->where('created_at', '>=', $inicioMes);
+
+        $cantVentasSemana = $ventasSemanaCollection->groupBy(function ($pedido) {
+            $fecha = $pedido->created_at->format('Y-m-d');
+            $usuarioId = $pedido->usuario_id ?? 'anonimo';
+            return "{$usuarioId}-{$fecha}";
+        })->count();
+
+        $cantVentasMes = $ventasMesCollection->groupBy(function ($pedido) {
+            $fecha = $pedido->created_at->format('Y-m-d');
+            $usuarioId = $pedido->usuario_id ?? 'anonimo';
+            return "{$usuarioId}-{$fecha}";
+        })->count();
+
         $ventasMetricas = [
-            'ventas_semana' => $ventas->where('created_at', '>=', $inicioSemana)->count(),
-            'ventas_mes' => $ventas->where('created_at', '>=', $inicioMes)->count(),
-            'recaudacion_semana' => $calcularRecaudacion($ventas->where('created_at', '>=', $inicioSemana)),
-            'recaudacion_mes' => $calcularRecaudacion($ventas->where('created_at', '>=', $inicioMes)),
+            'ventas_semana' => $cantVentasSemana,
+            'ventas_mes' => $cantVentasMes,
+            'recaudacion_semana' => $calcularRecaudacion($ventasSemanaCollection),
+            'recaudacion_mes' => $calcularRecaudacion($ventasMesCollection),
         ];
 
         $ventasPorDia = collect(range(6, 0))->map(function ($diasAtras) use ($ventas, $calcularRecaudacion) {
@@ -93,6 +146,7 @@ class AdminController extends Controller
             'usuariosPorRol',
             'consultas',
             'pedidos',
+            'ventasAgrupadas',
             'metricas',
             'ventasMetricas',
             'ventasPorDia',
@@ -165,9 +219,24 @@ class AdminController extends Controller
             'estado' => 'required|in:pendiente,en proceso,completado,cancelado',
         ]);
 
-        $pedido->update($validated);
+        // Obtenemos la fecha y el usuario del pedido recibido para identificar el "grupo"
+        $fecha = $pedido->created_at->format('Y-m-d');
+        $usuarioId = $pedido->usuario_id;
 
-        return back()->with('admin_success', 'Estado del pedido actualizado.');
+        // Preparamos la consulta para actualizar toda la orden completa
+        $query = Pedido::whereDate('created_at', $fecha)->where('tipo', 'cliente');
+
+        // Manejamos si el usuario está registrado o es anónimo
+        if ($usuarioId) {
+            $query->where('usuario_id', $usuarioId);
+        } else {
+            $query->whereNull('usuario_id');
+        }
+
+        // Actualizamos el estado de todos los ítems de esa orden de una sola vez
+        $query->update(['estado' => $validated['estado']]);
+
+        return back()->with('admin_success', 'Estado de la orden actualizado correctamente.');
     }
 
     public function actualizarEstadoConsulta(Request $request, Consulta $consulta)
@@ -179,5 +248,61 @@ class AdminController extends Controller
         $consulta->update($validated);
 
         return back()->with('admin_success', 'Estado de la consulta actualizado.');
+    }
+
+    public function obtenerDetallePedido(Pedido $pedido)
+    {
+        $metodosPago = [
+            'efectivo' => 'Efectivo al retirar',
+            'transferencia' => 'Mercado Pago',
+            'tarjeta' => 'Tarjeta debito/credito',
+        ];
+
+        // Obtener todos los pedidos del mismo usuario en la misma fecha
+        $fecha = $pedido->created_at->format('Y-m-d');
+        $usuarioId = $pedido->usuario_id;
+        
+        $pedidosDelMismoGrupo = Pedido::with('producto')
+            ->where('usuario_id', $usuarioId)
+            ->whereDate('created_at', $fecha)
+            ->where('tipo', 'cliente')
+            ->get();
+
+        // Si no hay agrupación, usar el pedido actual
+        if ($pedidosDelMismoGrupo->isEmpty()) {
+            $pedidosDelMismoGrupo = collect([$pedido]);
+        }
+
+        $primerPedido = $pedidosDelMismoGrupo->first();
+        $total = $pedidosDelMismoGrupo->sum(function ($p) {
+            return (float) ($p->subtotal ?? ((float) ($p->producto->precio ?? 0) * $p->cantidad));
+        });
+
+        $productos = $pedidosDelMismoGrupo->map(function ($p) {
+            $precioUnitario = $p->producto->precio ?? 0;
+            $subtotal = $p->subtotal ?? ($precioUnitario * $p->cantidad);
+            return [
+                'nombre' => $p->producto->nombre ?? 'Sin producto',
+                'cantidad' => $p->cantidad,
+                'precio' => '$' . number_format($precioUnitario, 2, ',', '.'),
+                'total' => '$' . number_format($subtotal, 2, ',', '.'),
+            ];
+        })->toArray();
+
+        return response()->json([
+            'id' => $pedido->id,
+            'fecha' => $primerPedido->created_at->format('d/m/Y H:i'),
+            'cliente_nombre' => $primerPedido->cliente_nombre ?? optional($primerPedido->usuario)->nombre,
+            'cliente_email' => $primerPedido->cliente_email ?? optional($primerPedido->usuario)->email,
+            'cliente_telefono' => $primerPedido->cliente_telefono,
+            'envio_direccion' => $primerPedido->envio_direccion,
+            'envio_ciudad' => $primerPedido->envio_ciudad,
+            'envio_provincia' => $primerPedido->envio_provincia,
+            'envio_codigo_postal' => $primerPedido->envio_codigo_postal,
+            'metodo_pago' => $metodosPago[$primerPedido->metodo_pago] ?? ($primerPedido->metodo_pago ?? 'Sin definir'),
+            'estado' => ucfirst($primerPedido->estado),
+            'total' => '$' . number_format($total, 2, ',', '.'),
+            'productos' => $productos
+        ]);
     }
 }
