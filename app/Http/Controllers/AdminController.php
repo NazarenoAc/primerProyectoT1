@@ -66,12 +66,22 @@ class AdminController extends Controller
             ->groupBy(fn ($usuario) => $usuario->rol->nombre ?? 'sin rol')
             ->map->count();
 
+        $pedidosPendientes = Pedido::where('tipo', 'cliente')
+            ->where('estado', 'pendiente')
+            ->get()
+            ->groupBy(function ($pedido) {
+                $fecha = $pedido->created_at->format('Y-m-d');
+                $usuarioId = $pedido->usuario_id ?? 'anonimo';
+                return "{$usuarioId}-{$fecha}";
+            })
+            ->count();
+
         $metricas = [
             'productos' => $productos->count(),
             'bajo_stock' => $productosBajoStock->count(),
             'usuarios' => Usuario::count(),
             'consultas_pendientes' => Consulta::where('estado', 'pendiente')->count(),
-            'pedidos_pendientes' => Pedido::where('estado', 'pendiente')->count(),
+            'pedidos_pendientes' => $pedidosPendientes,
         ];
 
         $inicioSemana = now()->startOfWeek();

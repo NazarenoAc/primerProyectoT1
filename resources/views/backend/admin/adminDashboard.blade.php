@@ -114,65 +114,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="sales-summary mt-4 mb-4">
-                        <div class="sales-total">
-                            <div class="sales-total-label">Recaudacion semanal</div>
-                            <div class="sales-total-value">${{ number_format($ventasMetricas['recaudacion_semana'], 2, ',', '.') }}</div>
-                            <small>{{ $ventasMetricas['ventas_semana'] }} ventas completadas</small>
-                        </div>
-                        <div class="sales-total">
-                            <div class="sales-total-label">Recaudacion mensual</div>
-                            <div class="sales-total-value">${{ number_format($ventasMetricas['recaudacion_mes'], 2, ',', '.') }}</div>
-                            <small>{{ $ventasMetricas['ventas_mes'] }} ventas completadas</small>
-                        </div>
-                    </div>
-
-                    <div class="row g-4">
-                        <div class="col-xl-6">
-                            <div class="sales-chart">
-                                <div class="sales-chart-title">
-                                    <div>
-                                        <h3>Ventas de los ultimos 7 dias</h3>
-                                        <span>Cantidad de pedidos de clientes completados</span>
-                                    </div>
-                                </div>
-                                <div class="sales-bars">
-                                    @foreach($ventasPorDia as $dia)
-                                        <div class="sales-bar-item">
-                                            <div class="sales-bar-value">{{ $dia['ventas'] }}</div>
-                                            <div class="sales-bar-track">
-                                                <div class="sales-bar-fill" style="height: {{ $dia['porcentaje'] }}%;"></div>
-                                            </div>
-                                            <div class="sales-bar-label">{{ $dia['label'] }}</div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6">
-                            <div class="sales-chart">
-                                <div class="sales-chart-title">
-                                    <div>
-                                        <h3>Recaudacion por mes</h3>
-                                        <span>Ultimos 6 meses</span>
-                                    </div>
-                                </div>
-                                <div class="sales-bars">
-                                    @foreach($recaudacionPorMes as $mes)
-                                        <div class="sales-bar-item">
-                                            <div class="sales-bar-value">${{ number_format($mes['recaudacion'], 0, ',', '.') }}</div>
-                                            <div class="sales-bar-track">
-                                                <div class="sales-bar-fill" style="height: {{ $mes['porcentaje'] }}%;"></div>
-                                            </div>
-                                            <div class="sales-bar-label">{{ $mes['label'] }}</div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </section>
 
                 <section class="tab-pane fade" id="productos-panel" role="tabpanel" aria-labelledby="productos-tab">
