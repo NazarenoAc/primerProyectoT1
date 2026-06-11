@@ -72,17 +72,6 @@
                         <div class="col-6 col-xl">
                             <div class="card admin-card admin-kpi">
                                 <div class="card-body">
-                                    <span class="admin-kpi-icon"><i class="bi bi-exclamation-triangle"></i></span>
-                                    <div>
-                                        <div class="admin-kpi-value">{{ $metricas['bajo_stock'] }}</div>
-                                        <div class="admin-muted">Bajo stock</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-xl">
-                            <div class="card admin-card admin-kpi">
-                                <div class="card-body">
                                     <span class="admin-kpi-icon"><i class="bi bi-people"></i></span>
                                     <div>
                                         <div class="admin-kpi-value">{{ $metricas['usuarios'] }}</div>

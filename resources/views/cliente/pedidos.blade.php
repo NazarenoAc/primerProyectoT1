@@ -16,8 +16,8 @@
             <table class="table align-middle">
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
+                        <th>Orden</th>
+                        <th>Productos</th>
                         <th>Envio / pago</th>
                         <th>Total</th>
                         <th>Estado</th>
@@ -25,31 +25,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($pedidos as $pedido)
+                    @forelse($ordenes as $orden)
                         @php
                             $metodosPago = [
                                 'efectivo' => 'Efectivo al retirar',
                                 'transferencia' => 'Mercado Pago',
                                 'tarjeta' => 'Tarjeta debito/credito',
                             ];
-                            $subtotalPedido = $pedido->subtotal ?? (($pedido->producto->precio ?? 0) * $pedido->cantidad);
+                            $productosLista = $orden->productos_items->map(function ($p) {
+                                $nombre = $p->producto->nombre ?? 'Sin producto';
+                                return $nombre . ' x' . $p->cantidad;
+                            })->join(', ');
                         @endphp
                         <tr>
-                            <td>{{ $pedido->producto->nombre ?? 'Sin producto' }}</td>
-                            <td>{{ $pedido->cantidad }}</td>
+                            <td>#{{ $orden->id }}</td>
+                            <td>{{ $productosLista }}</td>
                             <td>
-                                @if(!empty($pedido->envio_direccion) && $pedido->envio_direccion !== 'Retiro en local')
-                                    <div>{{ $pedido->envio_direccion }}</div>
-                                    <small class="text-secondary">{{ $pedido->envio_ciudad ?? '' }}, {{ $pedido->envio_provincia ?? '' }}</small>
+                                @if(!empty($orden->productos_items->first()->envio_direccion) && $orden->productos_items->first()->envio_direccion !== 'Retiro en local')
+                                    <div>{{ $orden->productos_items->first()->envio_direccion }}</div>
+                                    <small class="text-secondary">{{ $orden->productos_items->first()->envio_ciudad ?? '' }}, {{ $orden->productos_items->first()->envio_provincia ?? '' }}</small>
                                 @else
                                     <div><strong>Retiro en local</strong></div>
                                     <small class="text-secondary">Facena UNNE - Retiro sin cargo</small>
                                 @endif
-                                <small class="text-secondary d-block mt-1">Pago: {{ $metodosPago[$pedido->metodo_pago] ?? ($pedido->metodo_pago ?? 'Sin definir') }}</small>
+                                <small class="text-secondary d-block mt-1">Pago: {{ $metodosPago[$orden->metodo_pago] ?? ($orden->metodo_pago ?? 'Sin definir') }}</small>
                             </td>
-                            <td>${{ number_format($subtotalPedido, 2, ',', '.') }}</td>
-                            <td>{{ ucfirst($pedido->estado) }}</td>
-                            <td>{{ $pedido->created_at->format('d/m/Y') }}</td>
+                            <td>${{ number_format($orden->total, 2, ',', '.') }}</td>
+                            <td>{{ ucfirst($orden->estado) }}</td>
+                            <td>{{ $orden->created_at->format('d/m/Y') }}</td>
                         </tr>
                     @empty
                         <tr>

@@ -31,6 +31,9 @@ class AdminController extends Controller
             ->orderByDesc('created_at')
             ->get()
             ->groupBy(function ($pedido) {
+                if (!empty($pedido->orden_id)) {
+                    return $pedido->orden_id;
+                }
                 $fecha = $pedido->created_at->format('Y-m-d');
                 $usuarioId = $pedido->usuario_id ?? 'anonimo';
                 return "{$usuarioId}-{$fecha}";
@@ -95,12 +98,18 @@ class AdminController extends Controller
         $ventasMesCollection = $ventas->where('created_at', '>=', $inicioMes);
 
         $cantVentasSemana = $ventasSemanaCollection->groupBy(function ($pedido) {
+            if (!empty($pedido->orden_id)) {
+                return $pedido->orden_id;
+            }
             $fecha = $pedido->created_at->format('Y-m-d');
             $usuarioId = $pedido->usuario_id ?? 'anonimo';
             return "{$usuarioId}-{$fecha}";
         })->count();
 
         $cantVentasMes = $ventasMesCollection->groupBy(function ($pedido) {
+            if (!empty($pedido->orden_id)) {
+                return $pedido->orden_id;
+            }
             $fecha = $pedido->created_at->format('Y-m-d');
             $usuarioId = $pedido->usuario_id ?? 'anonimo';
             return "{$usuarioId}-{$fecha}";
@@ -272,11 +281,18 @@ class AdminController extends Controller
         $fecha = $pedido->created_at->format('Y-m-d');
         $usuarioId = $pedido->usuario_id;
         
-        $pedidosDelMismoGrupo = Pedido::with('producto')
-            ->where('usuario_id', $usuarioId)
-            ->whereDate('created_at', $fecha)
-            ->where('tipo', 'cliente')
-            ->get();
+        if (!empty($pedido->orden_id)) {
+            $pedidosDelMismoGrupo = Pedido::with('producto')
+                ->where('orden_id', $pedido->orden_id)
+                ->where('tipo', 'cliente')
+                ->get();
+        } else {
+            $pedidosDelMismoGrupo = Pedido::with('producto')
+                ->where('usuario_id', $usuarioId)
+                ->whereDate('created_at', $fecha)
+                ->where('tipo', 'cliente')
+                ->get();
+        }
 
         // Si no hay agrupación, usar el pedido actual
         if ($pedidosDelMismoGrupo->isEmpty()) {

@@ -7,6 +7,7 @@ use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CarritoController extends Controller
@@ -101,7 +102,9 @@ class CarritoController extends Controller
         }
     }
 
-    DB::transaction(function () use ($items, $request, $validated) {
+    $ordenId = (string) Str::uuid();
+
+    DB::transaction(function () use ($items, $request, $validated, $ordenId) {
         foreach ($items as $item) {
             $precioUnitario = (float) $item->producto->precio;
 
@@ -120,6 +123,9 @@ class CarritoController extends Controller
 
             // Si tu tabla pedidos tiene columna 'tipo_entrega', agrega:
             // $pedidoData['tipo_entrega'] = $validated['tipo_entrega'];
+
+            // Asignamos identificador único de orden para agrupar ítems
+            $pedidoData['orden_id'] = $ordenId;
 
             // Campos de cliente/dirección (si existen en la tabla)
             if (Schema::hasColumn('pedidos', 'cliente_nombre')) {
