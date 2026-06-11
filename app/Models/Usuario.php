@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable; // ◄--- IMPORTANTE: Para que funcione el login
 use Illuminate\Database\Eloquent\Factories\HasFactory;       // ◄--- IMPORTANTE: Para el borrado lógico
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Usuario extends Authenticatable 
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'usuarios'; 
 

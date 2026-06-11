@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-body">
         <h1 class="h4 fw-bold mb-1">Mis pedidos</h1>
-        <p class="text-secondary mb-4">Historial de pedidos generados desde tu carrito.</p>
+        <p class="text-secondary mb-4">Historial de pedidos realizados desde tu carrito.</p>
 
         @if(session('success'))
             <div class="alert alert-success border-0 shadow-sm">{{ session('success') }}</div>
@@ -36,9 +36,10 @@
                                 $nombre = $p->producto->nombre ?? 'Sin producto';
                                 return $nombre . ' x' . $p->cantidad;
                             })->join(', ');
+                            $numeroOrden = $ordenes->count() - $loop->index;
                         @endphp
                         <tr>
-                            <td>#{{ $orden->id }}</td>
+                            <td>#{{ $numeroOrden }}</td>
                             <td>{{ $productosLista }}</td>
                             <td>
                                 @if(!empty($orden->productos_items->first()->envio_direccion) && $orden->productos_items->first()->envio_direccion !== 'Retiro en local')
@@ -56,7 +57,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-secondary py-4">Todavia no generaste pedidos.</td>
+                            <td colspan="6" class="text-center text-secondary py-4">Todavia no realizaste ningun pedido.</td>
                         </tr>
                     @endforelse
                 </tbody>

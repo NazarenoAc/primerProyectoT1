@@ -58,12 +58,8 @@
         <div class="col-md-6 mb-4">
             <div class="card h-100 border-0 shadow-sm text-center">
                 <div class="card-body p-4">
-                    <div class="mb-3">
-                        
-                        <i class="bi bi-person-circle fs-1 text-primary"></i>
-                    </div>
                     <h3 class="card-title fw-bold">Benitez Vallejos, Nicolas</h3>
-                    <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
+                    <p class="text-secondary mb-1">Corrientes, Argentina</p>
                     <p class="text-secondary mb-3"></i> 20 años</p>
                     <span class="badge p-2 px-3">Vendedor y asesor de ventas</span>
                     
@@ -74,11 +70,8 @@
         <div class="col-md-6 mb-4">
             <div class="card h-100 border-0 shadow-sm text-center">
                 <div class="card-body p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-person-circle fs-1 text-primary"></i>
-                    </div>
                     <h3 class="card-title fw-bold">Acevedo Acosta, Nazareno</h3>
-                    <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill"></i> Corrientes, Argentina</p>
+                    <p class="text-secondary mb-1">Corrientes, Argentina</p>
                     <p class="text-secondary mb-3"></i> 20 años</p>
                     <span class="badge p-2 px-3">Vendedor y asesor de ventas</span>
                     

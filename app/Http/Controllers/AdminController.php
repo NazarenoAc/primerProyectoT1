@@ -238,22 +238,13 @@ class AdminController extends Controller
             'estado' => 'required|in:pendiente,en proceso,completado,cancelado',
         ]);
 
-        // Obtenemos la fecha y el usuario del pedido recibido para identificar el "grupo"
-        $fecha = $pedido->created_at->format('Y-m-d');
-        $usuarioId = $pedido->usuario_id;
-
-        // Preparamos la consulta para actualizar toda la orden completa
-        $query = Pedido::whereDate('created_at', $fecha)->where('tipo', 'cliente');
-
-        // Manejamos si el usuario está registrado o es anónimo
-        if ($usuarioId) {
-            $query->where('usuario_id', $usuarioId);
+        if ($pedido->tipo === 'cliente' && ! empty($pedido->orden_id)) {
+            Pedido::where('orden_id', $pedido->orden_id)
+                ->where('tipo', 'cliente')
+                ->update(['estado' => $validated['estado']]);
         } else {
-            $query->whereNull('usuario_id');
+            $pedido->update(['estado' => $validated['estado']]);
         }
-
-        // Actualizamos el estado de todos los ítems de esa orden de una sola vez
-        $query->update(['estado' => $validated['estado']]);
 
         return back()->with('admin_success', 'Estado de la orden actualizado correctamente.');
     }

@@ -50,17 +50,15 @@
                         </a>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span>Anterior</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                        <span>Siguiente</span>
                     </button>
                 </div>
             </div>
         </div>
-</section>
+    </section>
 
         <section class="text-center py-5">
             <h1 class="display-5 fw-bold text-light">Bienvenidos a <strong style="color: #3b82f6;">Punto Electronico</strong></h1>
@@ -105,7 +103,7 @@
             </div>
         </section>
 
-<section id="categorias" class="mb-5">
+        <section id="categorias" class="mb-5">
             <div class="container pt-4">
                 <div class="text-center mb-1">
                     <h2 class="h3 fw-bold text-light">Explora por categoría</h2>

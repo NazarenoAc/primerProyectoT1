@@ -14,7 +14,6 @@ class CategoriaSeeder extends Seeder
             ['nombre' => 'Computadoras', 'descripcion' => 'Notebooks, laptops y equipos de trabajo'],
             ['nombre' => 'Audio', 'descripcion' => 'Auriculares, sonido y perifericos'],
             ['nombre' => 'TV y Monitores', 'descripcion' => 'Pantallas, monitores y televisores'],
-            ['nombre' => 'Wearables', 'descripcion' => 'Relojes inteligentes y tecnologia portable'],
         ];
 
         foreach ($categorias as $categoria) {

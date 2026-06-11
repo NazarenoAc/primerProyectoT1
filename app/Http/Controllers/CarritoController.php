@@ -113,16 +113,14 @@ class CarritoController extends Controller
                 'usuario_id' => $request->user()->id,
                 'producto_id' => $item->producto_id,
                 'tipo' => 'cliente',
+                'tipo_entrega' => $validated['tipo_entrega'],
                 'estado' => 'pendiente',
                 'cantidad' => $item->cantidad,
-                'detalle' => 'Pedido generado desde carrito',
+                'detalle' => 'Pedido realizado desde carrito',
                 'metodo_pago' => $validated['metodo_pago'],
                 'precio_unitario' => $precioUnitario,
                 'subtotal' => $precioUnitario * $item->cantidad,
             ];
-
-            // Si tu tabla pedidos tiene columna 'tipo_entrega', agrega:
-            // $pedidoData['tipo_entrega'] = $validated['tipo_entrega'];
 
             // Asignamos identificador único de orden para agrupar ítems
             $pedidoData['orden_id'] = $ordenId;
@@ -159,6 +157,6 @@ class CarritoController extends Controller
         }
     });
 
-    return redirect('/mis-pedidos')->with('success', 'Pedido generado correctamente.');
+    return redirect('/mis-pedidos')->with('success', 'Pedido realizado correctamente.');
 }
 }

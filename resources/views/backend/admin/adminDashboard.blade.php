@@ -9,19 +9,19 @@
             <div class="admin-sidebar-title">Menu administrador</div>
             <div class="nav admin-nav" id="admin-tabs" role="tablist">
                 <button class="nav-link active" id="resumen-tab" data-bs-toggle="pill" data-bs-target="#resumen-panel" type="button" role="tab">
-                    <i class="bi bi-grid-1x2"></i>Resumen
+                    Resumen
                 </button>
                 <button class="nav-link" id="productos-tab" data-bs-toggle="pill" data-bs-target="#productos-panel" type="button" role="tab">
-                    <i class="bi bi-boxes"></i>Productos
+                    Productos
                 </button>
                 <button class="nav-link" id="usuarios-tab" data-bs-toggle="pill" data-bs-target="#usuarios-panel" type="button" role="tab">
-                    <i class="bi bi-people"></i>Usuarios
+                    Usuarios
                 </button>
                 <button class="nav-link" id="ventas-tab" data-bs-toggle="pill" data-bs-target="#ventas-panel" type="button" role="tab">
-                    <i class="bi bi-bag-check"></i>Ventas
+                    Ventas
                 </button>
                 <button class="nav-link" id="consultas-tab" data-bs-toggle="pill" data-bs-target="#consultas-panel" type="button" role="tab">
-                    <i class="bi bi-chat-left-text"></i>Consultas
+                    Consultas
                 </button>
             </div>
         </aside>
@@ -49,9 +49,9 @@
                             <div class="col-lg-4">
                                 <div class="admin-welcome">
                                     <div class="fw-bold">
-                                        <i class="bi bi-shield-lock me-2"></i>Bienvenido, {{ auth()->user()->nombre }}
+                                        Bienvenido, {{ auth()->user()->nombre }}
                                     </div>
-                                    <small><i class="bi bi-calendar3 me-2"></i>{{ now()->format('d/m/Y') }}</small>
+                                    <small>{{ now()->format('d/m/Y') }}</small>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,6 @@
                         <div class="col-6 col-xl">
                             <div class="card admin-card admin-kpi">
                                 <div class="card-body">
-                                    <span class="admin-kpi-icon"><i class="bi bi-box-seam"></i></span>
                                     <div>
                                         <div class="admin-kpi-value">{{ $metricas['productos'] }}</div>
                                         <div class="admin-muted">Productos</div>
@@ -72,7 +71,6 @@
                         <div class="col-6 col-xl">
                             <div class="card admin-card admin-kpi">
                                 <div class="card-body">
-                                    <span class="admin-kpi-icon"><i class="bi bi-people"></i></span>
                                     <div>
                                         <div class="admin-kpi-value">{{ $metricas['usuarios'] }}</div>
                                         <div class="admin-muted">Usuarios</div>
@@ -83,7 +81,6 @@
                         <div class="col-6 col-xl">
                             <div class="card admin-card admin-kpi">
                                 <div class="card-body">
-                                    <span class="admin-kpi-icon"><i class="bi bi-chat-left-text"></i></span>
                                     <div>
                                         <div class="admin-kpi-value">{{ $metricas['consultas_pendientes'] }}</div>
                                         <div class="admin-muted">Consultas</div>
@@ -94,7 +91,6 @@
                         <div class="col-6 col-xl">
                             <div class="card admin-card admin-kpi">
                                 <div class="card-body">
-                                    <span class="admin-kpi-icon"><i class="bi bi-clipboard-check"></i></span>
                                     <div>
                                         <div class="admin-kpi-value">{{ $metricas['pedidos_pendientes'] }}</div>
                                         <div class="admin-muted">Pedidos</div>
@@ -109,7 +105,6 @@
                     <div class="card admin-card">
                         <div class="card-body">
                             <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-boxes"></i></span>
                                 <div>
                                     <h2>Productos y stock</h2>
                                     <p>Crea productos y actualiza unidades disponibles.</p>
@@ -198,7 +193,7 @@
                                                             <input class="form-check-input" type="checkbox" name="activo" value="1" @checked($producto->activo)>
                                                         </div>
                                                         <button class="btn btn-sm btn-primary" type="submit">
-                                                            <i class="bi bi-save me-1"></i>Guardar
+                                                            Guardar
                                                         </button>
                                                     </form>
                                                 </td>
@@ -219,7 +214,6 @@
                     <div class="card admin-card">
                         <div class="card-body">
                             <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-people"></i></span>
                                 <div>
                                     <h2>Usuarios</h2>
                                     <p>Totales por rol, sin datos personales.</p>
@@ -242,7 +236,6 @@
                     <div class="card admin-card">
                         <div class="card-body">
                             <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-bag-check"></i></span>
                                 <div>
                                     <h2>Ventas</h2>
                                     <p>Órdenes de compra de clientes.</p>
@@ -253,10 +246,11 @@
                                 @php
                                     $clienteNombre = $venta->cliente_nombre;
                                     $primerProducto = $venta->productos_items->first();
+                                    $numeroOrden = $ventasAgrupadas->count() - $loop->index;
                                 @endphp
                                 <div class="admin-sales-order">
                                     <div style="flex: 1;">
-                                        <div class="admin-sales-order-number">Orden #{{ $venta->id }}</div>
+                                        <div class="admin-sales-order-number">Orden #{{ $numeroOrden }}</div>
                                         <div class="admin-sales-order-customer">
                                             @if($clienteNombre)
                                                 {{ $clienteNombre }}
@@ -279,8 +273,8 @@
                                         </form>
                                     </div>
                                     <div class="admin-sales-order-actions">
-                                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal" onclick="loadSaleDetails({{ $venta->id }})">
-                                            <i class="bi bi-eye me-1"></i>Ver detalles
+                                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#saleDetailModal" onclick="loadSaleDetails({{ $venta->id }}, {{ $numeroOrden }})">
+                                            Ver detalles
                                         </button>
                                     </div>
                                 </div>
@@ -295,7 +289,6 @@
                     <div class="card admin-card">
                         <div class="card-body">
                             <div class="admin-title">
-                                <span class="admin-title-icon"><i class="bi bi-chat-left-text"></i></span>
                                 <div>
                                     <h2>Consultas de usuarios</h2>
                                     <p>Mensajes enviados desde el formulario de contacto.</p>
@@ -370,7 +363,7 @@
 </div>
 
 <script>
-function loadSaleDetails(saleId) {
+function loadSaleDetails(saleId, displayOrder) {
     const modalBody = document.getElementById('saleDetailContent');
     const modal = document.getElementById('saleDetailModal');
     
@@ -381,7 +374,7 @@ function loadSaleDetails(saleId) {
             let html = `
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <strong>Orden #${data.id}</strong>
+                        <strong>Orden #${displayOrder}</strong>
                         <div class="admin-muted">${data.fecha}</div>
                     </div>
                     <div class="col-md-6 text-end">

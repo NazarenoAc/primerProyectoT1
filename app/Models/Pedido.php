@@ -11,6 +11,7 @@ class Pedido extends Model
         'usuario_id',
         'producto_id',
         'tipo',
+        'tipo_entrega',
         'estado',
         'cantidad',
         'detalle',

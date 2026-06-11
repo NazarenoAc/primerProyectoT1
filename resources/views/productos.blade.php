@@ -55,7 +55,6 @@
                 'Computadoras' => asset('images/productos.png'),
                 'Audio' => asset('images/ofertas.png'),
                 'TV y Monitores' => asset('images/bannerInicio.png'),
-                'Wearables' => asset('images/conocenos.png'),
                 default => asset('images/productos.png'),
             };
 

@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-between align-items-center gap-3 mb-4">
                     <div>
                         <h1 class="h4 fw-bold mb-1">Mi carrito</h1>
-                        <p class="mb-0 text-secondary">Revisa tus productos antes de generar el pedido.</p>
+                        <p class="mb-0 text-secondary">Revisa tus productos antes de realizar el pedido.</p>
                     </div>
                     <a href="/productos" class="btn btn-subtle">Seguir comprando</a>
                 </div>
@@ -123,7 +123,7 @@
 
                     <div class="mt-3">
                             <label class="form-label" for="cliente_telefono">Teléfono</label>
-                            <input id="cliente_telefono" name="cliente_telefono" type="text" class="form-control" value="{{ old('cliente_telefono') }}" placeholder="Ej: 11 5555 5555" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
+                            <input id="cliente_telefono" name="cliente_telefono" type="text" class="form-control" value="{{ old('cliente_telefono') }}" placeholder="Ej: 9 3794 123456" @disabled($items->isEmpty()) {{ old('tipo_entrega') == 'envio' ? 'required' : '' }}>
                         </div>
 
                     <div id="datos_envio_container" style="display: {{ old('tipo_entrega') == 'envio' ? 'block' : 'none' }};">
@@ -159,7 +159,7 @@
                     </div>
 
                     <button class="btn btn-primary w-100 mt-3" type="submit" @disabled($items->isEmpty())>
-                        Generar pedido
+                        Realizar pedido
                     </button>
                 </form>
             </div>

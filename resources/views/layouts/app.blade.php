@@ -51,9 +51,6 @@
 
                             <div class="dropdown user-menu">
                                 <button class="btn user-menu-toggle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span class="user-avatar">
-                                        <i class="bi bi-person"></i>
-                                    </span>
                                     <span class="user-menu-name">{{ auth()->user()->nombre }}</span>
                                 </button>
 
@@ -61,13 +58,13 @@
                                     @if(auth()->user()->rol && auth()->user()->rol->nombre === 'admin')
                                         <li>
                                             <a class="dropdown-item" href="/admin">
-                                                <i class="bi bi-speedometer2 me-2"></i>Panel de Gestion
+                                                Panel de Gestion
                                             </a>
                                         </li>
                                     @else
                                         <li>
                                             <a class="dropdown-item" href="/mis-pedidos">
-                                                <i class="bi bi-bag-check me-2"></i>Mis pedidos
+                                                Mis pedidos
                                             </a>
                                         </li>
                                     @endif
@@ -163,7 +160,7 @@
     <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoOffcanvas" aria-labelledby="carritoOffcanvasLabel" style="width: 400px; border-left: none; box-shadow: -5px 0 15px rgba(0,0,0,0.05);">
     
     <div class="offcanvas-header pb-2">
-        <h2 class="offcanvas-title fw-semibold fs-4" id="carritoOffcanvasLabel">Mi bolsa</h2>
+        <h2 class="offcanvas-title fw-semibold fs-4" id="carritoOffcanvasLabel">Mi carrito</h2>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
@@ -178,7 +175,6 @@
                             'Computadoras' => asset('images/productos.png'),
                             'Audio' => asset('images/ofertas.png'),
                             'TV y Monitores' => asset('images/bannerInicio.png'),
-                            'Wearables' => asset('images/conocenos.png'),
                             default => asset('images/productos.png'),
                         };
 

@@ -16,9 +16,6 @@
     
     <div class="col-12 col-md-6 col-lg-3">
         <div class="contact-card">
-            <div class="icon-box">
-                <i class="bi bi-geo-alt"></i>
-            </div>
             <h5>Dirección</h5>
             <p>Facena UNNE<br>Corrientes, Corrientes</p>
         </div>
@@ -27,9 +24,6 @@
     
     <div class="col-12 col-md-6 col-lg-3">
         <div class="contact-card">
-            <div class="icon-box">
-                <i class="bi bi-telephone"></i>
-            </div>
             <h5>Teléfono</h5>
             <p>+54 9 379 4540426<br>+54 9 379 4949990</p>
         </div>
@@ -38,9 +32,6 @@
    
     <div class="col-12 col-md-6 col-lg-3">
         <div class="contact-card">
-            <div class="icon-box">
-                <i class="bi bi-envelope"></i>
-            </div>
             <h5>Email</h5>
             <p>info@puntoElectronico.com<br>ventas@puntoElectronico.com</p>
         </div>
@@ -49,9 +40,6 @@
    
     <div class="col-12 col-md-6 col-lg-3">
         <div class="contact-card">
-            <div class="icon-box">
-                <i class="bi bi-clock"></i>
-            </div>
             <h5>Horario</h5>
             <p>Lun - Vie: 9:00 - 20:00<br>Sáb: 10:00 - 14:00</p>
         </div>
@@ -66,7 +54,6 @@
         <div class="card h-100 shadow-sm">
             <div class="card-body d-flex flex-column">
                 <h3 class="card-title mb-4">
-                    <i class="bi bi-chat-dots me-2"></i>
                     ¿Necesitás asesoramiento personalizado?
                 </h3>
 
@@ -76,7 +63,6 @@
 
                 <div class="mt-auto">
                     <a href="{{ url('/consultas') }}" class="btn btn-primary">
-                        <i class="bi bi-pencil-square me-2"></i>
                         Ir al formulario de consultas
                     </a>
                 </div>
@@ -89,7 +75,6 @@
         <div class="card h-100 shadow-sm">
             <div class="card-body">
                 <h3 class="card-title mb-4">
-                    <i class="bi bi-geo-alt me-2"></i>
                     Nuestra Ubicación
                 </h3>
 
