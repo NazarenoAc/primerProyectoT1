@@ -299,6 +299,11 @@ class AdminController extends Controller
             ];
         })->toArray();
 
+        $esRetiro = empty($primerPedido->envio_direccion)
+            && empty($primerPedido->envio_ciudad)
+            && empty($primerPedido->envio_provincia)
+            && empty($primerPedido->envio_codigo_postal);
+
         return response()->json([
             'id' => $pedido->id,
             'fecha' => $primerPedido->created_at->format('d/m/Y H:i'),
@@ -309,6 +314,7 @@ class AdminController extends Controller
             'envio_ciudad' => $primerPedido->envio_ciudad,
             'envio_provincia' => $primerPedido->envio_provincia,
             'envio_codigo_postal' => $primerPedido->envio_codigo_postal,
+            'es_retiro' => $esRetiro,
             'metodo_pago' => $metodosPago[$primerPedido->metodo_pago] ?? ($primerPedido->metodo_pago ?? 'Sin definir'),
             'estado' => ucfirst($primerPedido->estado),
             'total' => '$' . number_format($total, 2, ',', '.'),

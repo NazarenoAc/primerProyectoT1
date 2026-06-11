@@ -409,8 +409,8 @@ function loadSaleDetails(saleId) {
                     </div>
                     <div class="col-md-6">
                         <h6>Envío</h6>
-                        <div>${data.envio_direccion || 'Sin datos de envío'}</div>
-                        <small class="admin-muted">${data.envio_ciudad}, ${data.envio_provincia} (${data.envio_codigo_postal})</small>
+                        <div>${data.es_retiro ? 'Retiro en el local' : (data.envio_direccion || 'Sin datos de envío')}</div>
+                        <small class="admin-muted">${data.es_retiro ? '' : `${data.envio_ciudad || ''}${data.envio_ciudad && data.envio_provincia ? ', ' : ''}${data.envio_provincia || ''}${data.envio_codigo_postal ? ` (${data.envio_codigo_postal})` : ''}`}</small>
                     </div>
                 </div>
                 
